@@ -1,3 +1,0 @@
-"# TIPE" 
-"# TIPE" 
-"# TIPE" 

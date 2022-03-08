@@ -40,13 +40,18 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Cas où le nombre de personnes sauvés est égal au nombre de personnes présentes
+        //Everybody are safe
         if(HowManyHumanSpawn == HowManyPeopleSave)
         {
+            Debug.Log("Tout le monde est sauvé");
+
+            //Need to be update because the last survivant won't be count if it's not update
+            CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
         }
-        //Cas où il reste encore des gens à sauvés
+        //Not everybody are safe
         else
         {
+            //Cas où il reste encore des gens à sauvés
             //Update the Timer
             timer += Time.deltaTime;
             TimerText.text = "t: " + timer.ToString("n2") + "s";
@@ -55,20 +60,12 @@ public class GameManager : MonoBehaviour
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
         }
 
-
     }
 
     //Create a Human with the model define in the public variable 
     void CreateHuman()
     {
-        //Increment the variable of how many people spawn at total
-        HowManyHumanSpawn++;
-
         //Instantiate the Game Object Human define by the public variable
-        GameObject human_test = Instantiate(Human);
-
-        //Give a random pos to the human
-        pos = new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f);
-        human_test.transform.localPosition = pos;
+        GameObject human_test = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0,0,0,0));
     }
 }

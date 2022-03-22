@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     //Define the GameObject use for Human
     public GameObject Human;
 
+    //Define the GameObject use for the Fire
+    public GameObject Fire;
+
     //Define How many humans spawn at the start of simulation
     public int HowManyHumanSpawn;
 
@@ -39,15 +42,16 @@ public class GameManager : MonoBehaviour
         //Code to start the simulation
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isSimulating = true;
-            Time.timeScale = 1; // This allow the person to move
-
-
             DestroyAllHuman(); //Destroy all the human on the map
+            StopTheFire(); //Stop the fire
+
             CreateHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+            StartTheFire(); //Start the Fire
 
             timer = 0; //Reset the timer
             HowManyPeopleSave = 0; // Reset the number of people save
+            Time.timeScale = 1; // This allow the peoples to move
+            isSimulating = true;
         }
 
 
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             //Instantiate the Game Object Human define by the public variable
-            GameObject human_test = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
+            GameObject human = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
         }
     }
 
@@ -97,5 +101,17 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObjects[i]);
         }
+    }
+
+    void StartTheFire()
+    {
+        //Instantiate a fire, for now, the position is not important
+        Instantiate(Fire);
+    }
+
+    void StopTheFire()
+    {
+        GameObject gameObject = GameObject.Find("Fire");
+        Destroy(gameObject); // Destroy the fire
     }
 }

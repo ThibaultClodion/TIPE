@@ -24,34 +24,47 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI CptPeopleSaveText;
     public TextMeshProUGUI TimerText;
 
-
-
+    //Define if the simulation is on going or not
+    private bool isSimulating = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < HowManyHumanSpawn; i++)
-        {
-            CreateHuman();
-        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Everybody are safe
-        if(HowManyHumanSpawn == HowManyPeopleSave)
+        //Code to start the simulation
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            isSimulating = true;
+            Time.timeScale = 1; // This allow the person to move
+
+
+            DestroyAllHuman(); //Destroy all the human on the map
+            CreateHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+
+            timer = 0; //Reset the timer
+            HowManyPeopleSave = 0; // Reset the number of people save
+        }
+
+
+        //Everybody are safe, end of the simulation
+        if (HowManyHumanSpawn == HowManyPeopleSave)
+        {
+            isSimulating = false; //The simulation is finish
+
             Debug.Log("Tout le monde est sauvé");
 
             //Need to be update because the last survivant won't be count if it's not update
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
         }
-        //Not everybody are safe
-        else
+
+        //Not everybody are safe and the simulation is not finish
+        else if (isSimulating)
         {
-            //Cas où il reste encore des gens à sauvés
             //Update the Timer
             timer += Time.deltaTime;
             TimerText.text = "t: " + timer.ToString("n2") + "s";
@@ -60,12 +73,29 @@ public class GameManager : MonoBehaviour
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
         }
 
+        else if (isSimulating == false)
+        {
+            Time.timeScale = 0; // If the simulation don't start nobody move
+        }
     }
 
     //Create a Human with the model define in the public variable 
-    void CreateHuman()
+    void CreateHuman(int number)
     {
-        //Instantiate the Game Object Human define by the public variable
-        GameObject human_test = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0,0,0,0));
+        for (int i = 0; i < number; i++)
+        {
+            //Instantiate the Game Object Human define by the public variable
+            GameObject human_test = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
+        }
+    }
+
+    void DestroyAllHuman() // Destroy all the humans on the map
+    {
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
+
+        for (var i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
     }
 }

@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
+//This is the GameManager for control the human with BOIDS ## You have to change the name of this file to GameManager to launch the simulation with it ##
 public class GameManager : MonoBehaviour
 {
     //Define the GameObject use for Human
-    public GameObject Human;
+    public GameObject boidPrefab;
+
+    //List of all the script of boids
+    public List<BoidController> _boids;
 
     //Define the GameObject use for the Fire
     public GameObject Fire;
@@ -45,7 +50,7 @@ public class GameManager : MonoBehaviour
             DestroyAllHuman(); //Destroy all the human on the map
             StopTheFire(); //Stop the fire
 
-            CreateHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+            CreateBoids(HowManyHumanSpawn); // Create the amount of human who need to spawn
             StartTheFire(); //Start the Fire
 
             timer = 0; //Reset the timer
@@ -75,6 +80,12 @@ public class GameManager : MonoBehaviour
 
             //Update the People Save text
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
+
+            //Update the movement of Boids
+            foreach(BoidController boid in _boids)
+            {
+                boid.SimulateMovement(_boids, Time.deltaTime);
+            }
         }
 
         else if (isSimulating == false)
@@ -84,13 +95,22 @@ public class GameManager : MonoBehaviour
     }
 
     //Create a Human with the model define in the public variable 
-    void CreateHuman(int number)
+    void CreateBoids(int number)
     {
+        _boids = new List<BoidController>();
+
         for (int i = 0; i < number; i++)
         {
-            //Instantiate the Game Object Human define by the public variable
-            GameObject human = Instantiate(Human, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
+           //Spawn all the boids
+            SpawnBoid(boidPrefab.gameObject, 0);
         }
+    }
+
+    void SpawnBoid(GameObject prefab, int swarmIndex)
+    {
+        var boidInstance = Instantiate(prefab);
+        boidInstance.transform.localPosition += new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f);
+        _boids.Add(boidInstance.GetComponent<BoidController>());
     }
 
     void DestroyAllHuman() // Destroy all the humans on the map

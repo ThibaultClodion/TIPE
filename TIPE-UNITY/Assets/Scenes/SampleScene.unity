@@ -216,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 994563569}
   - component: {fileID: 994563568}
+  - component: {fileID: 994563570}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -230,12 +231,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994563567}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3d73e373e935c94cac82c4c1d824863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Human: {fileID: 7845133316953236592, guid: 43e73d47b501ab844b2fdcafd399422f, type: 3}
+  HumanPrefab: {fileID: 7845133316953236592, guid: 43e73d47b501ab844b2fdcafd399422f, type: 3}
   Fire: {fileID: 8691038474630089305, guid: 746c4b817599097458c84cc483fe644d, type: 3}
   HowManyHumanSpawn: 10
   HowManyPeopleSave: 0
@@ -255,6 +256,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994563570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994563567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f092f12c27c4d13499244dd00793c536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boidPrefab: {fileID: 8000410107429379400, guid: a165fec3f972a714b99ffdd14d4c1aad, type: 3}
+  _boids: []
+  Fire: {fileID: 8691038474630089305, guid: 746c4b817599097458c84cc483fe644d, type: 3}
+  HowManyHumanSpawn: 10
+  HowManyPeopleSave: 0
+  CptPeopleSaveText: {fileID: 1505096888}
+  TimerText: {fileID: 1620128997}
 --- !u!1 &1338629585
 GameObject:
   m_ObjectHideFlags: 0

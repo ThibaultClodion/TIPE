@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public int HowManyPeopleSave = 0;
 
     //Time during the simulation
-    private float timer;
+    public float timer;
 
     //Define the GameObject for the text
     public TextMeshProUGUI CptPeopleSaveText;
@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour
 
     //Define if the simulation is on going or not
     private bool isSimulating = false;
+
+    //List of exit time for data
+    public List<float> exit_times;
 
     // Start is called before the first frame update
     void Start()

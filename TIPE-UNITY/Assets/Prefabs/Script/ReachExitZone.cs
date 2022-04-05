@@ -11,6 +11,8 @@ public class ReachExitZone : MonoBehaviour
     private GameObject gameManager;
     private GameManager gameManagerScript;
 
+    public List<float> exit_times;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,11 @@ public class ReachExitZone : MonoBehaviour
         {
             //Change the public variable, to add a people save
             gameManagerScript.HowManyPeopleSave ++;
+
+            //Get the time when the people exit (to make stats)
+            exit_times.Add(gameManagerScript.timer);
+
+            Debug.Log("test");
 
             //Destroy the object if it goes to the exit zone
             Destroy(gameObject);

@@ -273,8 +273,10 @@ MonoBehaviour:
   Fire: {fileID: 8691038474630089305, guid: 746c4b817599097458c84cc483fe644d, type: 3}
   HowManyHumanSpawn: 10
   HowManyPeopleSave: 0
+  timer: 0
   CptPeopleSaveText: {fileID: 1505096888}
   TimerText: {fileID: 1620128997}
+  exit_times: []
 --- !u!1 &1338629585
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,6 +719,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 337902474, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 337902474, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 337902474, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870238150, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
+      propertyPath: m_Mass
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1870238151, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7023028886590845532, guid: 76ef6b6e282369f40b2cc5036cd03688, type: 3}
       propertyPath: m_RootOrder
       value: 2

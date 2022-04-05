@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 359572452367332205}
   - component: {fileID: 156639858}
   - component: {fileID: 230843796}
-  - component: {fileID: 230843799}
   m_Layer: 0
   m_Name: HumanControlByMe
   m_TagString: Human
@@ -133,17 +132,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab59f01fe6738d941a15e1006c81cd0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &230843799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7845133316953236592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 090c9eea710a36e4196838dee7516caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

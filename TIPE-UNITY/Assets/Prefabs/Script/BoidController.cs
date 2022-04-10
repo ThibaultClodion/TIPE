@@ -47,8 +47,8 @@ public class BoidController : MonoBehaviour
         Vector2 cohesionDirection = Vector2.zero;
         int cohesionCount = 0;
 
-        var leaderBoid = other[0];
-        var leaderAngle = 180f;
+        /*var leaderBoid = other[0];
+        var leaderAngle = 180f;*/
 
         foreach (BoidController boid in other)
         {
@@ -72,13 +72,12 @@ public class BoidController : MonoBehaviour
                 cohesionDirection += (Vector2)boid.transform.position - (Vector2)transform.position;
                 cohesionCount++;
 
-                //identify leader
-                var angle = Vector3.Angle(boid.transform.position - transform.position, transform.forward);
+                /*var angle = Vector2.Angle((Vector2)boid.transform.position - (Vector2)transform.position, transform.forward);
                 if(angle < leaderAngle && angle < 90f)
                 {
                     leaderBoid = boid;
                     leaderAngle = angle;
-                }
+                } (optional)*/
             }
         }
 
@@ -99,25 +98,29 @@ public class BoidController : MonoBehaviour
 
         //flip
         separationDirection = -separationDirection;
+
+        //get direction to center of mass
+        cohesionDirection -= (Vector2)transform.position;
  
         //apply to steering and weigthed rules
         steering += separationDirection.normalized;
         steering += alignmentDirection.normalized;
         steering += cohesionDirection.normalized;
 
-        //local leader, I comment it, because it was not better i thought
-        /*if (leaderBoid != null)
-            steering += (Vector2)(leaderBoid.transform.position - transform.position).normalized;*/
+        /*//local leader (optional)
+        if (leaderBoid != null)
+        {
+            steering += ((Vector2)leaderBoid.transform.position - (Vector2)transform.position).normalized;
+        }*/
 
         //apply steering
-        if (steering != Vector2.zero) {
+        if(steering != Vector2.zero) {
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(steering), SteeringSpeed * time);
         transform.rotation = new Quaternion(0, 0, transform.rotation.z, transform.rotation.w);
         }
 
         //move
         transform.position += transform.TransformDirection(new Vector2(-Speed, 0)) * time;
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

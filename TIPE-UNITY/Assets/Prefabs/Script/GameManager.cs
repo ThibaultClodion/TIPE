@@ -68,8 +68,6 @@ public class GameManager : MonoBehaviour
         {
             isSimulating = false; //The simulation is finish
 
-            Debug.Log("Tout le monde est sauvé");
-
             //Need to be update because the last survivant won't be count if it's not update
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
         }

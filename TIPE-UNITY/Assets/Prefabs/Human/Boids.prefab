@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwarmIndex: 0
-  NoClumpingRadius: 2
+  NoClumpingRadius: 10
   LocalAreaRadius: 10
   Speed: 5
   SteeringSpeed: 100

@@ -87,7 +87,10 @@ public class GameManager : MonoBehaviour
             //Update the movement of Boids
             foreach(BoidController boid in _boids)
             {
-                boid.SimulateMovement(_boids, Time.deltaTime);
+                if(boid != null)
+                {
+                    boid.SimulateMovement(_boids, Time.deltaTime);
+                }
             }
         }
 

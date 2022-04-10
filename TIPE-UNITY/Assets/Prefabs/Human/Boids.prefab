@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwarmIndex: 0
-  NoClumpingRadius: 5
+  NoClumpingRadius: 2
   LocalAreaRadius: 10
-  Speed: 10
+  Speed: 5
   SteeringSpeed: 100
 --- !u!50 &-6279401077538296820
 Rigidbody2D:
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &-5277855008879649887
 CircleCollider2D:

@@ -216,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 994563569}
   - component: {fileID: 994563568}
+  - component: {fileID: 994563571}
   - component: {fileID: 994563570}
   m_Layer: 0
   m_Name: GameManager
@@ -263,11 +264,37 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994563567}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f092f12c27c4d13499244dd00793c536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Fire: {fileID: 0}
+  HowManyHumanSpawn: 0
+  HowManyPeopleSave: 0
+  timer: 0
+  CptPeopleSaveText: {fileID: 0}
+  TimerText: {fileID: 0}
+  exit_times: []
+  agentPrefab: {fileID: 0}
+  behavior: {fileID: 0}
+  driveFactor: 10
+  maxSpeed: 5
+  neighborRadius: 1.5
+  avoidanceRadiusMultiplier: 0.5
+--- !u!114 &994563571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994563567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 877b243137bf05c40928b7bf31581c8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HumanPrefab: {fileID: 7845133316953236592, guid: 43e73d47b501ab844b2fdcafd399422f, type: 3}
   Fire: {fileID: 8691038474630089305, guid: 746c4b817599097458c84cc483fe644d, type: 3}
   HowManyHumanSpawn: 25
   HowManyPeopleSave: 0
@@ -275,12 +302,6 @@ MonoBehaviour:
   CptPeopleSaveText: {fileID: 1505096888}
   TimerText: {fileID: 1620128997}
   exit_times: []
-  agentPrefab: {fileID: 4658410854506205607, guid: a165fec3f972a714b99ffdd14d4c1aad, type: 3}
-  behavior: {fileID: 11400000, guid: ed7af00cd62269c438b627179be5b6d2, type: 2}
-  driveFactor: 10
-  maxSpeed: 5
-  neighborRadius: 1.5
-  avoidanceRadiusMultiplier: 0.5
 --- !u!1 &1338629585
 GameObject:
   m_ObjectHideFlags: 0

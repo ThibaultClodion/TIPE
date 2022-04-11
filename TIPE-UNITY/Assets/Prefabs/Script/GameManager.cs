@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
-//This is the GameManager for control the human with BOIDS ## You have to change the name of this file to GameManager to launch the simulation with it ##
 public class GameManager : MonoBehaviour
 {
+    //Define the GameObject use for Human
+    public GameObject HumanPrefab;
+    List<GameObject> humans = new List<GameObject>();
+
     //Define the GameObject use for the Fire
     public GameObject Fire;
 
@@ -20,6 +22,9 @@ public class GameManager : MonoBehaviour
     //Time during the simulation
     public float timer;
 
+    [Range(1f, 10f)]
+    public float neighborRadius = 1.5f;
+
     //Define the GameObject for the text
     public TextMeshProUGUI CptPeopleSaveText;
     public TextMeshProUGUI TimerText;
@@ -30,33 +35,9 @@ public class GameManager : MonoBehaviour
     //List of exit time for data
     public List<float> exit_times;
 
-    //Variable for the Boids
-    public BoidAgent agentPrefab;
-    List<BoidAgent> agents = new List<BoidAgent>();
-    public BoidBehavior behavior;
-
-    const float AgentDensity = 0.08f;
-
-    [Range(1f, 100f)]
-    public float driveFactor = 10f;
-    [Range(1f, 100f)]
-    public float maxSpeed = 5f;
-    [Range(1f, 10f)]
-    public float neighborRadius = 1.5f;
-    [Range(0f, 1f)]
-    public float avoidanceRadiusMultiplier = 0.5f;
-
-    float squareMaxSpeed;
-    float squareNeighborRadius;
-    float squareAvoidanceRadius;
-    public float SquareAvoidanceRadius { get{ return squareAvoidanceRadius; } }
-
     // Start is called before the first frame update
     void Start()
     {
-        squareMaxSpeed = maxSpeed * maxSpeed;
-        squareNeighborRadius = neighborRadius * neighborRadius;
-        squareAvoidanceRadius = squareNeighborRadius * avoidanceRadiusMultiplier * avoidanceRadiusMultiplier;
     }
 
     // Update is called once per frame
@@ -65,11 +46,14 @@ public class GameManager : MonoBehaviour
         //Code to start the simulation
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DestroyAllBoids(); //Destroy all the boids on the map
+            DestroyAllHuman(); //Destroy all the boids on the map
             //StopTheFire(); //Stop the fire
 
-            CreateBoids(HowManyHumanSpawn); // Create the amount of human who need to spawn
+            SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
             //StartTheFire(); //Start the Fire
+
+            //Reset the exit_times
+            exit_times = new List<float>();
 
             timer = 0; //Reset the timer
             HowManyPeopleSave = 0; // Reset the number of people save
@@ -97,8 +81,8 @@ public class GameManager : MonoBehaviour
             //Update the People Save text
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
 
-            //Simulate the Boids movement
-            BoidMovement();
+            //Color the human in function of density
+            Coloration();
         }
 
         else if (isSimulating == false)
@@ -107,33 +91,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Create "number" boid with the model define in the public variable 
-    void CreateBoids(int number)
+    //Create "number" human
+    void SpawnHuman(int number)
     {
         for (int i = 0; i < number; i++)
         {
-            BoidAgent newAgent = Instantiate(agentPrefab,
-                new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f),
-                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+            //Instantiate the Game Object Human define by the public variable
+            GameObject human = Instantiate(HumanPrefab, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
 
-            newAgent.name = "Agent" + i;
-            agents.Add(newAgent);
+            humans.Add(human);
         }
     }
-    //Spawn a single boid
-    void SpawnBoid(GameObject prefab)
-    {
-        var boidInstance = Instantiate(prefab);
-        boidInstance.transform.localPosition += new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f);
-    }
 
-    void DestroyAllBoids() // Destroy all the boids on the map
+    void DestroyAllHuman() // Destroy all the humans on the map
     {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
-
-        for (var i = 0; i < gameObjects.Length; i++)
+        foreach (GameObject human in humans)
         {
-            Destroy(gameObjects[i]);
+            Destroy(human);
         }
     }
 
@@ -150,37 +124,27 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject); // Destroy the fire
     }
 
-    void BoidMovement()
+    void Coloration()
     {
-        foreach(BoidAgent agent in agents)
+        foreach (GameObject human in humans)
         {
-            if(agent != null)
+            if (human != null)
             {
-                List<Transform> context = GetNearbyObjects(agent);
+                List<Transform> context = GetNearbyObjects(human);
 
                 //Fade the color from yellow to red with the density
-                agent.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 6f);
-
-                Vector2 move = behavior.CalculateMove(agent, context, this);
-                move *= driveFactor;
-
-                if(move.sqrMagnitude > squareMaxSpeed)
-                {
-                    move = move.normalized * maxSpeed;
-                }
-
-                agent.Move(move);
+                human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 6f);
             }
         }
     }
 
-    List<Transform> GetNearbyObjects(BoidAgent agent)
+    List<Transform> GetNearbyObjects(GameObject agent)
     {
         List<Transform> context = new List<Transform>();
         Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
-        foreach(Collider2D c in contextColliders)
+        foreach (Collider2D c in contextColliders)
         {
-            if(c != agent.BoidCollider)
+            if (c != agent)
             {
                 context.Add(c.transform);
             }

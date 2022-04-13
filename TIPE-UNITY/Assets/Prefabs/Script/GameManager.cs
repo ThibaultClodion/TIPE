@@ -5,10 +5,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    //Define the GameObject use for Human
-    public GameObject HumanPrefab;
-    List<GameObject> humans = new List<GameObject>();
-
     //Define the GameObject use for the Fire
     public GameObject Fire;
 
@@ -35,6 +31,13 @@ public class GameManager : MonoBehaviour
     //List of exit time for data
     public List<float> exit_times;
 
+    //All these variables are for the PSO algorthims
+    List<PSOAgent> humans = new List<PSOAgent>(); //Possibility to make a list of list to have different zone further
+    public Vector2 minGlobal; // minimum pos reach by swarm
+    public PSOAgent HumanPrefab;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +50,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             DestroyAllHuman(); //Destroy all the boids on the map
+
+            humans = new List<PSOAgent>(); //Reset the humans list
+
             //StopTheFire(); //Stop the fire
 
             SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
@@ -83,6 +89,9 @@ public class GameManager : MonoBehaviour
 
             //Color the human in function of density
             Coloration();
+
+            //Permit the movement
+            Movement();
         }
 
         else if (isSimulating == false)
@@ -91,23 +100,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Create "number" human
+    //Create "number" human with the model define in the public variable 
     void SpawnHuman(int number)
     {
         for (int i = 0; i < number; i++)
         {
-            //Instantiate the Game Object Human define by the public variable
-            GameObject human = Instantiate(HumanPrefab, new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f), new Quaternion(0, 0, 0, 0));
+            PSOAgent newAgent = Instantiate(HumanPrefab,
+                new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f),
+                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
 
-            humans.Add(human);
+            newAgent.name = "Agent" + i;
+            humans.Add(newAgent);
         }
     }
 
-    void DestroyAllHuman() // Destroy all the humans on the map
+    void DestroyAllHuman() // Destroy all the boids on the map
     {
-        foreach (GameObject human in humans)
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
+
+        for (var i = 0; i < gameObjects.Length; i++)
         {
-            Destroy(human);
+            Destroy(gameObjects[i]);
         }
     }
 
@@ -126,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     void Coloration()
     {
-        foreach (GameObject human in humans)
+        foreach (PSOAgent human in humans)
         {
             if (human != null)
             {
@@ -138,7 +151,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    List<Transform> GetNearbyObjects(GameObject agent)
+    List<Transform> GetNearbyObjects(PSOAgent agent)
     {
         List<Transform> context = new List<Transform>();
         Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
@@ -150,5 +163,16 @@ public class GameManager : MonoBehaviour
             }
         }
         return context;
+    }
+
+    void Movement()
+    {
+        foreach (PSOAgent agent in humans)
+        {
+            if (agent != null)
+            {
+                agent.Move();
+            }
+        }
     }
 }

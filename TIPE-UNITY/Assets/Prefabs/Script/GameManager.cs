@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject Fire;
 
     //Define How many humans spawn at the start of simulation
-    [Range(10f, 100f)]
+    [Range(1f, 500f)]
     public int HowManyHumanSpawn;
 
     //Variable to know how many peoples were saves
@@ -32,8 +32,11 @@ public class GameManager : MonoBehaviour
     public List<float> exit_times;
 
     //All these variables are for the PSO algorthims
+    //Position of ExitZone
+    public List<GameObject> ExitsZone = new List<GameObject>();
+    public List<Vector2> minGlobal = new List<Vector2>(); // minimum pos reach by swarm
+
     List<PSOAgent> humans = new List<PSOAgent>(); //Possibility to make a list of list to have different zone further
-    public Vector2 minGlobal; // minimum pos reach by swarm
     public PSOAgent HumanPrefab;
 
 
@@ -41,6 +44,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        int i = 0;
+        foreach(GameObject ExitZone in ExitsZone)
+        {
+            minGlobal.Add(ExitsZone[i].transform.position);
+            i++;
+        }
+
     }
 
     // Update is called once per frame
@@ -106,7 +116,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             PSOAgent newAgent = Instantiate(HumanPrefab,
-                new Vector3(Random.Range(-10.0f, 10.0f), Random.Range(-5.0f, 5.0f), -0.1f),
+                new Vector3(Random.Range(-28f, 34f), Random.Range(-16.5f, 16.5f), -0.1f),
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
 
             newAgent.name = "Agent" + i;
@@ -146,7 +156,7 @@ public class GameManager : MonoBehaviour
                 List<Transform> context = GetNearbyObjects(human);
 
                 //Fade the color from yellow to red with the density
-                human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 6f);
+                human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 50f);
             }
         }
     }
@@ -174,5 +184,11 @@ public class GameManager : MonoBehaviour
                 agent.Move();
             }
         }
+    }
+
+    public float batimentFunction(int WhichExitZone, Vector2 pos)
+    {
+        Vector2 Distance = minGlobal[WhichExitZone] - pos;
+        return Distance.magnitude * Distance.magnitude;
     }
 }

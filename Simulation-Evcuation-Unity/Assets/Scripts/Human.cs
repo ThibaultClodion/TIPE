@@ -7,7 +7,6 @@ public class Human : MonoBehaviour
 {
 
     private GameManager GMScript;
-    public Transform movePositionTransform;
 
     private NavMeshAgent navMeshAgent;
     private void Awake()
@@ -23,14 +22,13 @@ public class Human : MonoBehaviour
         
     }
 
-    public void Move()
+    public void Move(Transform destination)
     {
-        navMeshAgent.destination = movePositionTransform.position;
+        navMeshAgent.destination = destination.position;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Work");
         if (other.tag == "ExitZone")
         {
             //Change the public variable, to add a people save

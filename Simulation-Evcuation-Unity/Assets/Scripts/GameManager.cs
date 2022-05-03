@@ -35,10 +35,6 @@ public class GameManager : MonoBehaviour
     //Position of ExitZone
     public Transform ExitZonePos; // minimum pos reach by swarm
 
-    // Start is called before the first frame update
-    private void Awake()
-    {
-    }
 
     // Update is called once per frame
     void Update()
@@ -101,10 +97,9 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             Human newAgent = Instantiate(HumanPrefab,
-                new Vector3(Random.Range(10, 65), 0.85f, Random.Range(-25, 0)),
+                new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3)),
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
             newAgent.name = "Agent" + i;
-            newAgent.movePositionTransform = ExitZonePos;
             humans.Add(newAgent);
         }
     }
@@ -153,7 +148,7 @@ public class GameManager : MonoBehaviour
         {
             if (agent != null)
             {
-                agent.Move();
+                agent.Move(ExitZonePos);
             }
         }
     }

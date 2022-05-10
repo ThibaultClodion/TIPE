@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     public Human HumanPrefab;
 
     //Position of ExitZone
-    public Transform ExitZonePos; // minimum pos reach by swarm
+    public List<Transform> ExitZonePos; // minimum pos reach by swarm
 
 
     // Update is called once per frame
@@ -96,10 +96,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            Human newAgent = Instantiate(HumanPrefab,
-                new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3)),
+            Vector3 pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
+            Human newAgent = Instantiate(HumanPrefab, pos_Agent,
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
             newAgent.name = "Agent" + i;
+            newAgent.ExitZoneWantedPosition = DefineClosestExitZone(pos_Agent);
             humans.Add(newAgent);
         }
     }
@@ -142,13 +143,31 @@ public class GameManager : MonoBehaviour
         return context;
     }*/
 
+    Transform DefineClosestExitZone(Vector3 humanPos)
+    {
+        int i = 0;
+        int min_i = 0;
+        float min = Vector3.Distance(ExitZonePos[0].position, humanPos);
+        foreach(Transform exitZone in ExitZonePos)
+        {
+            if(min > Vector3.Distance(exitZone.position, humanPos))
+                {
+                min_i = i;
+                min = Vector3.Distance(exitZone.position, humanPos);
+                }
+            i++;
+        }
+        Debug.Log(min_i);
+        return ExitZonePos[min_i];
+    }
+
     void Movement()
     {
         foreach (Human agent in humans)
         {
             if (agent != null)
             {
-                agent.Move(ExitZonePos);
+                agent.Move();
             }
         }
     }

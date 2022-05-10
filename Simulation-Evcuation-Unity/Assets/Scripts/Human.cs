@@ -9,6 +9,8 @@ public class Human : MonoBehaviour
     private GameManager GMScript;
 
     private NavMeshAgent navMeshAgent;
+
+    public Transform ExitZoneWantedPosition;
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -22,9 +24,9 @@ public class Human : MonoBehaviour
         
     }
 
-    public void Move(Transform destination)
+    public void Move()
     {
-        navMeshAgent.destination = destination.position;
+        navMeshAgent.destination = ExitZoneWantedPosition.position;
     }
 
     private void OnTriggerEnter(Collider other)

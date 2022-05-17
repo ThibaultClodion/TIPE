@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Human
   - ExitZone
+  - Building
   layers:
   - Default
   - TransparentFX

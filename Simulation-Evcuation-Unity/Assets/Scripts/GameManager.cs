@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,7 +52,6 @@ public class GameManager : MonoBehaviour
 
             //Reset the exit_times
             exit_times = new List<float>();
-
             timer = 0; //Reset the timer
             HowManyPeopleSave = 0; // Reset the number of people save
             Time.timeScale = 1; // This allow the peoples to move
@@ -62,6 +62,11 @@ public class GameManager : MonoBehaviour
         //Everybody are safe, end of the simulation
         if (HowManyHumanSpawn == HowManyPeopleSave)
         {
+            //This test permit to not save twice the data
+            if (isSimulating == true)
+            {
+                SaveCSV(timer); //Save and Change the CSV
+            }
             isSimulating = false; //The simulation is finish
 
             //Need to be update because the last survivant won't be count if it's not update
@@ -157,7 +162,6 @@ public class GameManager : MonoBehaviour
                 }
             i++;
         }
-        Debug.Log(min_i);
         return ExitZonePos[min_i];
     }
 
@@ -170,5 +174,31 @@ public class GameManager : MonoBehaviour
                 agent.Move();
             }
         }
+    }
+
+    void SaveCSV(float timerOfExit)
+    {
+        //Path of the file
+        string path = "C:/Users/darkz/Desktop/TIPE/Data/" + GameObject.FindGameObjectWithTag("Building").name + ".csv";
+        
+        //Create File if it doesn't exist
+        if(!File.Exists(path))
+        {
+            File.WriteAllText(path, "Nombre Personnes;Temps Sortie Final;");
+            for(int i = 0; i < HowManyHumanSpawn; i++)
+            {
+                File.AppendAllText(path, "Personne " + i.ToString() + ";");
+            }
+            File.AppendAllText(path, "\n");
+        }
+
+        //Add the new values
+        File.AppendAllText(path, HowManyHumanSpawn.ToString() + ";" + timerOfExit.ToString() + ";");
+
+        foreach(float time in exit_times)
+        {
+            File.AppendAllText(path, time.ToString() + ";");
+        }
+        File.AppendAllText(path, "\n");
     }
 }

@@ -21,12 +21,14 @@ public class Human : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //NavMesh.avoidancePredictionTime = 0.5f;
     }
 
     public void Move(Transform pos)
     {
-        navMeshAgent.destination = pos.position;
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(pos.position, path);
+        navMeshAgent.SetPath(path);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -106,15 +106,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.1
+    agentRadius: 0.05
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 0.1
+    agentClimb: 0.5
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.033333335
+    cellSize: 0.016666668
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   HowManyHumanSpawn: 250
   HowManyPeopleSave: 0
   timer: 0
+  SpawnCollisionCheckRadius: 1.5
   CptPeopleSaveText: {fileID: 2124840657}
   TimerText: {fileID: 492801583}
   exit_times: []
@@ -1365,8 +1366,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.31389827, y: -0.13133414, z: 0.04384738, w: -0.93930644}
-  m_LocalPosition: {x: 21.12242, y: 22.036747, z: -52.09413}
+  m_LocalRotation: {x: -0.47951052, y: -0.0063710203, z: 0.003309229, w: -0.8775068}
+  m_LocalPosition: {x: 35.204796, y: 32.655823, z: -42.300602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1571,25 +1572,9 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 208722684}
-    - target: {fileID: 1505365559646980198, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
-      propertyPath: m_SelectedEdges.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505365559646980198, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
-      propertyPath: m_SelectedFaces.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505365559646980198, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
-      propertyPath: m_SelectedVertices.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1505365560197515152, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
       propertyPath: m_Name
       value: Building With 2 door
-      objectReference: {fileID: 0}
-    - target: {fileID: 1505365560197515152, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
-      propertyPath: m_TagString
-      value: Building
       objectReference: {fileID: 0}
     - target: {fileID: 1505365560197515159, guid: 62c65c615a2506546981fdf38f44f33a, type: 3}
       propertyPath: m_RootOrder

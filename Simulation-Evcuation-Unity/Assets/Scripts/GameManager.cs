@@ -15,101 +15,68 @@ public class GameManager : MonoBehaviour
     public int HowManyPeopleSave = 0;
 
     //Time during the simulation
-    public float timer;
+    public float timer = 0;
 
-    /*[Range(1f, 10f)]
-    public float neighborRadius = 1.5f;*/
+    public float SpawnCollisionCheckRadius = 0.05f;
 
     //Define the GameObject for the text
     public TextMeshProUGUI CptPeopleSaveText;
     public TextMeshProUGUI TimerText;
 
-    //Define if the simulation is on going or not
-    private bool isSimulating = false;
 
     //List of exit time for data
-    public List<float> exit_times;
+    public List<float> exit_times = new List<float>();
 
     List<Human> humans = new List<Human>();
     public Human HumanPrefab;
 
+    private List<Transform> humans_destination = new List<Transform>();
+
     //Position of ExitZone
     public List<Transform> ExitZonePos; // minimum pos reach by swarm
 
+    private void Start()
+    {
+
+        SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //Code to start the simulation
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DestroyAllHuman(); //Destroy all the boids on the map
+        //Update the Timer
+        timer += Time.deltaTime;
+        TimerText.text = "t: " + timer.ToString("n2") + "s";
 
-            humans = new List<Human>(); //Reset the humans list
+         //Update the People Save text
+         CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
 
-
-            SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
-
-            //Reset the exit_times
-            exit_times = new List<float>();
-            timer = 0; //Reset the timer
-            HowManyPeopleSave = 0; // Reset the number of people save
-            Time.timeScale = 1; // This allow the peoples to move
-            isSimulating = true;
-        }
+        //Color the human in function of density
+        //Coloration();
 
 
-        //Everybody are safe, end of the simulation
+        //Everybody are safe, end of the simulation, restart
         if (HowManyHumanSpawn == HowManyPeopleSave)
         {
-            //This test permit to not save twice the data
-            if (isSimulating == true)
-            {
-                SaveCSV(timer); //Save and Change the CSV
-            }
-            isSimulating = false; //The simulation is finish
-
-            //Need to be update because the last survivant won't be count if it's not update
-            CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
-
-            DestroyAllHuman(); //Destroy all the boids on the map
-
-            humans = new List<Human>(); //Reset the humans list
-
-
-            SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
-
-            //Reset the exit_times
-            exit_times = new List<float>();
-            timer = 0; //Reset the timer
-            HowManyPeopleSave = 0; // Reset the number of people save
-            Time.timeScale = 1; // This allow the peoples to move
-            isSimulating = true;
-        }
-
-        //Not everybody are safe and the simulation is not finish
-        else if (isSimulating)
-        {
-            //Update the Timer
-            timer += Time.deltaTime;
-            TimerText.text = "t: " + timer.ToString("n2") + "s";
-
-            //Update the People Save text
-            CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
-
-            //Color the human in function of density
-            //Coloration();
-
-            //Permit the movement
-            //Movement();
-
-        }
-
-        else if (isSimulating == false)
-        {
-            Time.timeScale = 0; // If the simulation don't start nobody move
+            Reset();
         }
     }
+
+    private void Reset()
+    {
+        HowManyPeopleSave = 0; // Reset the number of people save
+        SaveCSV(timer); //Save and Change the CSV
+
+        humans = new List<Human>(); //Reset the humans list
+        humans_destination = new List<Transform>(); //Reset the humans_destination list
+        exit_times = new List<float>(); //Reset the exit_times
+
+
+        SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+
+        timer = 0; //Reset the timer
+    }
+
 
     //Create "number" human with the model define in the public variable 
     void SpawnHuman(int number)
@@ -117,97 +84,55 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < number; i++)
         {
             Vector3 pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
+
+            while (Physics.CheckSphere(pos_Agent, SpawnCollisionCheckRadius, 3))
+            {
+                pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
+            }
+
             Human newAgent = Instantiate(HumanPrefab, pos_Agent,
-                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+            Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
 
             newAgent.name = "Agent" + i;
 
-            newAgent.Move(DefineClosestExitZone(pos_Agent));
+            Transform Closest_destination = DefineClosestExitZone(pos_Agent); // Store the nearest destination of all agents
+            newAgent.Move(Closest_destination);
 
+            humans_destination.Add(Closest_destination);
             humans.Add(newAgent);
         }
     }
 
-    void DestroyAllHuman() // Destroy all the boids on the map
-    {
-        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
-
-        for (var i = 0; i < gameObjects.Length; i++)
-        {
-            Destroy(gameObjects[i]);
-        }
-    }
-
-    /*
-     * void Coloration()
-    {
-        foreach (Human human in humans)
-        {
-            if (human != null)
-            {
-                List<Transform> context = GetNearbyObjects(human);
-
-                //Fade the color from yellow to red with the density
-                human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 50f);
-            }
-        }
-    }
-
-    List<Transform> GetNearbyObjects(Human agent)
-    {
-        List<Transform> context = new List<Transform>();
-        Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
-        foreach (Collider2D c in contextColliders)
-        {
-            if (c != agent)
-            {
-                context.Add(c.transform);
-            }
-        }
-        return context;
-    }
-    */
-
     Transform DefineClosestExitZone(Vector3 humanPos)
     {
-        int i = 0;
-        int min_i = 0;
-        float min = Vector3.Distance(ExitZonePos[0].position, humanPos);
-        foreach(Transform exitZone in ExitZonePos)
-        {
-            if(min > Vector3.Distance(exitZone.position, humanPos))
-                {
-                min_i = i;
-                min = Vector3.Distance(exitZone.position, humanPos);
-                }
-            i++;
-        }
-        return ExitZonePos[min_i];
-    }
+        Transform bestTarget = null;
+        float min_dist = Mathf.Infinity;
 
-    /*
-    void Movement()
-    {
-        foreach (Human agent in humans)
+        foreach (Transform exitZone in ExitZonePos)
         {
-            if (agent != null)
+            Vector3 direction = exitZone.position - humanPos;
+            float dSqrToTarget = direction.sqrMagnitude;
+
+            if (dSqrToTarget < min_dist)
             {
-                agent.Move(ExitZonePos[0]); // Normally Move was call without argument
+                min_dist = dSqrToTarget;
+                bestTarget = exitZone;
             }
         }
+        return bestTarget;
     }
-    */
+    
 
     void SaveCSV(float timerOfExit)
     {
         //Path of the file
         string path = "C:/Users/darkz/Desktop/TIPE/Data/" + GameObject.FindGameObjectWithTag("Building").name + ".csv";
-        
+
         //Create File if it doesn't exist
-        if(!File.Exists(path))
+        if (!File.Exists(path))
         {
             File.WriteAllText(path, "Nombre Personnes;Temps Sortie Final;");
-            for(int i = 0; i < HowManyHumanSpawn; i++)
+            for (int i = 0; i < HowManyHumanSpawn; i++)
             {
                 File.AppendAllText(path, "Personne " + i.ToString() + ";");
             }
@@ -217,10 +142,61 @@ public class GameManager : MonoBehaviour
         //Add the new values
         File.AppendAllText(path, HowManyHumanSpawn.ToString() + ";" + timerOfExit.ToString() + ";");
 
-        foreach(float time in exit_times)
+        foreach (float time in exit_times)
         {
             File.AppendAllText(path, time.ToString() + ";");
         }
         File.AppendAllText(path, "\n");
     }
+
+    /*
+void DestroyAllHuman() // Destroy all the boids on the map
+{
+    GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
+
+    for (var i = 0; i < gameObjects.Length; i++)
+    {
+        Destroy(gameObjects[i]);
+    }
+}
+
+ private void Coloration()
+{
+    foreach (Human human in humans)
+    {
+        if (human != null)
+        {
+            List<Transform> context = GetNearbyObjects(human);
+            //Fade the color from yellow to red with the density
+            human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 50f);
+        }
+    }
+}
+List<Transform> GetNearbyObjects(Human agent)
+{
+    List<Transform> context = new List<Transform>();
+    Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
+    foreach (Collider2D c in contextColliders)
+    {
+        if (c != agent)
+        {
+            context.Add(c.transform);
+        }
+    }
+    return context;
+}
+
+    void Movement()
+{
+    int i = 0;
+    foreach (Human agent in humans)
+    {
+        if (agent != null)
+        {
+            agent.after20Sec(humans_destination[i]); // Normally Move was call without argument
+        }
+        i++;
+    }
+}
+*/
 }

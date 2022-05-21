@@ -71,6 +71,20 @@ public class GameManager : MonoBehaviour
 
             //Need to be update because the last survivant won't be count if it's not update
             CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
+
+            DestroyAllHuman(); //Destroy all the boids on the map
+
+            humans = new List<Human>(); //Reset the humans list
+
+
+            SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+
+            //Reset the exit_times
+            exit_times = new List<float>();
+            timer = 0; //Reset the timer
+            HowManyPeopleSave = 0; // Reset the number of people save
+            Time.timeScale = 1; // This allow the peoples to move
+            isSimulating = true;
         }
 
         //Not everybody are safe and the simulation is not finish
@@ -87,7 +101,8 @@ public class GameManager : MonoBehaviour
             //Coloration();
 
             //Permit the movement
-            Movement();
+            //Movement();
+
         }
 
         else if (isSimulating == false)
@@ -104,8 +119,11 @@ public class GameManager : MonoBehaviour
             Vector3 pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
             Human newAgent = Instantiate(HumanPrefab, pos_Agent,
                 Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+
             newAgent.name = "Agent" + i;
-            newAgent.ExitZoneWantedPosition = DefineClosestExitZone(pos_Agent);
+
+            newAgent.Move(DefineClosestExitZone(pos_Agent));
+
             humans.Add(newAgent);
         }
     }
@@ -120,7 +138,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /*void Coloration()
+    /*
+     * void Coloration()
     {
         foreach (Human human in humans)
         {
@@ -146,7 +165,8 @@ public class GameManager : MonoBehaviour
             }
         }
         return context;
-    }*/
+    }
+    */
 
     Transform DefineClosestExitZone(Vector3 humanPos)
     {
@@ -165,16 +185,18 @@ public class GameManager : MonoBehaviour
         return ExitZonePos[min_i];
     }
 
+    /*
     void Movement()
     {
         foreach (Human agent in humans)
         {
             if (agent != null)
             {
-                agent.Move();
+                agent.Move(ExitZonePos[0]); // Normally Move was call without argument
             }
         }
     }
+    */
 
     void SaveCSV(float timerOfExit)
     {

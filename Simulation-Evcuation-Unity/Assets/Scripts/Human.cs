@@ -24,9 +24,9 @@ public class Human : MonoBehaviour
         
     }
 
-    public void Move()
+    public void Move(Transform pos)
     {
-        navMeshAgent.destination = ExitZoneWantedPosition.position;
+        navMeshAgent.destination = pos.position;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,18 +1,16 @@
 import matplotlib.pyplot as plt
-import numpy as np
 
 """ Importation des données"""
 nb_agents = []  # Nombres de personnes
 derniere_sortie = []  # Correspond au temps de la dernière personne sortie
 temps_sortie = []  # Chaque ligne correspond aux temps de sorties des personnes
-nb_experience = 0  # Combien de simulations on été faite
 
 filename = "Building With 2 door.csv"  # Le nom du fichier est changeable selon le fichier considéré
 
 with open(filename, 'r', encoding='latin-1')as f:
     # Lecture des lignes
     lignes = f.read().splitlines()
-    nb_experience = len(lignes) - 1
+    nb_experience = len(lignes) - 1  # Combien de simulations on été faite
     # Recupération des données
     for ligne in lignes[1:]:  # à Partir de la deuxième ligne car on ne considère pas les titres des colonnes
         # Récupération des champs séparés par des ';' dans ce cas

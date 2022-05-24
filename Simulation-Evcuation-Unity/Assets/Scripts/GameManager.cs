@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //Time during the simulation
     public float timer = 0;
 
-    public float SpawnCollisionCheckRadius = 0.05f;
+    public float SpawnCollisionCheckRadius;
 
     //Define the GameObject for the text
     public TextMeshProUGUI CptPeopleSaveText;
@@ -83,11 +83,12 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
-            Vector3 pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
+            Vector3 pos_Agent = new Vector3(Random.Range(2.5f, 67.5f), 0.85f, Random.Range(-32.5f, -2.5f));
 
+            // Permit to avoid the fact that peoples spawn on other people or table etc
             while (Physics.CheckSphere(pos_Agent, SpawnCollisionCheckRadius, 3))
             {
-                pos_Agent = new Vector3(Random.Range(3, 67), 0.85f, Random.Range(-32, -3));
+                pos_Agent = new Vector3(Random.Range(2.5f, 67.5f), 0.85f, Random.Range(-32.5f, -2.5f));
             }
 
             Human newAgent = Instantiate(HumanPrefab, pos_Agent,

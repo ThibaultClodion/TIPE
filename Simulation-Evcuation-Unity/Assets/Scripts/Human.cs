@@ -26,9 +26,17 @@ public class Human : MonoBehaviour
 
     public void Move(Transform pos)
     {
+        //Solution 1 : Avantage: calcul plus rapide 
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(pos.position, path);
         navMeshAgent.SetPath(path);
+
+        /* Solution 2 : Avantage: Les personnes ne se retrouvent pas bloqué quand on les poussent parfois
+         * Gros désavantage à résoudre si je veux l'utiliser : au démarrage les agents se bloquent le temps de calcul
+         * Solution : attendre 5 sec avec que les agents se déplacent (le temps de calcul)
+         */
+        navMeshAgent.SetDestination(pos.position);
+        
     }
 
     private void OnTriggerEnter(Collider other)

@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
         //Color the human in function of density
         //Coloration();
 
+        //Movement();
+
 
         //Everybody are safe, end of the simulation, restart
         if (HowManyHumanSpawn == HowManyPeopleSave)
@@ -186,18 +188,18 @@ List<Transform> GetNearbyObjects(Human agent)
     }
     return context;
 }
-
-    void Movement()
+*/
+void Movement()
 {
     int i = 0;
     foreach (Human agent in humans)
     {
         if (agent != null)
         {
-            agent.after20Sec(humans_destination[i]); // Normally Move was call without argument
+            agent.Move(humans_destination[i]);
         }
         i++;
     }
 }
-*/
+
 }

@@ -21,7 +21,7 @@ public class Human : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //NavMesh.avoidancePredictionTime = 0.5f;
+        NavMesh.avoidancePredictionTime = 0.5f;
     }
 
     public void Move(Transform pos)

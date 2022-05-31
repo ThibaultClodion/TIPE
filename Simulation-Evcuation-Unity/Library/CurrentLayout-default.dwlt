@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 790.4
   m_ShowMode: 4
-  m_Title: Project
+  m_Title: Inspector
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_MinSize: {x: 707, y: 492}
   m_MaxSize: {x: 18002, y: 14042}
   vertical: 0
-  controlID: 59
+  controlID: 132
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 85
+  controlID: 90
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -486,9 +486,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.102678485, y: 5.8649497, z: -17.254156}
+    m_Target: {x: -0.83846056, y: 7.132357, z: -18.237268}
     speed: 2
-    m_Value: {x: -0.102678485, y: 5.8649497, z: -17.254156}
+    m_Value: {x: -0.83846056, y: 7.132357, z: -18.237268}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -535,9 +535,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.29388812, y: 0.6025474, z: -0.25373682, w: 0.6974174}
+    m_Target: {x: 0.29521072, y: 0.60387087, z: -0.2564306, w: 0.69472396}
     speed: 2
-    m_Value: {x: 0.29385772, y: 0.60248506, z: -0.25371057, w: 0.6973452}
+    m_Value: {x: 0.2951801, y: 0.6038082, z: -0.256404, w: 0.6946519}
   m_Size:
     m_Target: 0.9489868
     speed: 2
@@ -604,22 +604,22 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts
+    - Assets/Prefabs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/Prefabs
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\darkz\Desktop\TIPE\Simulation-Evcuation-Unity
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 7c460000
-    m_LastClickedID: 18044
-    m_ExpandedIDs: 000000006c4600007046000000ca9a3b
+    m_SelectedIDs: 6c460000
+    m_LastClickedID: 18028
+    m_ExpandedIDs: 000000006c4600008046000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -678,18 +678,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c623000010430000ec430000fc43000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Materials
+      m_OriginalName: Materials
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 18052
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 9}
     m_CreateAssetUtility:

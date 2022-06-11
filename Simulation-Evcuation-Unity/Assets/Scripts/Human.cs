@@ -26,15 +26,25 @@ public class Human : MonoBehaviour
 
     public void Move(Transform pos)
     {
-        //Solution 1 : Avantage: calcul plus rapide 
+        //Le détail sur les avantages et incovénient des solutions est dans mes notes.
+
+        /*/ Solution 1 : Des gens se bloquent ou sont lent, finalement avec les modifications faites ça à l'air pas mal
+        // Si il y a une ou deux valeurs a ecarter c'est pas grave
+        NavMeshPath path = new NavMeshPath();
+        navMeshAgent.CalculatePath(pos.position, path);
+        navMeshAgent.SetPath(path);*/
+
+        // Solution 2 : le calcul est parfois très long et plus le batiment est complexe plus il le serra surement
+        //navMeshAgent.SetDestination(pos.position);
+
+        // Solution 3 
+         
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(pos.position, path);
         navMeshAgent.SetPath(path);
+        
 
-        /* Solution 2 : Avantage: Les personnes ne se retrouvent pas bloqué quand on les poussent parfois
-         * Pour celle là il faut prendr en compte le fait qu'il y a un temps de calcul non négligeable.
-         */
-        //navMeshAgent.SetDestination(pos.position);
+        navMeshAgent.SetDestination(pos.position);
         
     }
 

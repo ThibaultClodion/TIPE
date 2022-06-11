@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1505365559123745351}
   - component: {fileID: 1505365559123745344}
   m_Layer: 0
-  m_Name: Wall (1)
+  m_Name: Wall South
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,7 +632,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1505365560197515159}
   m_Layer: 0
-  m_Name: Building Without door
+  m_Name: Building 0 door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -653,8 +653,8 @@ Transform:
   - {fileID: 1505365560679229971}
   - {fileID: 1505365559123745345}
   - {fileID: 1505365560415847116}
-  - {fileID: 1505365560837697878}
   - {fileID: 1505365560257088730}
+  - {fileID: 1505365560837697878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 1505365560257088728}
   - component: {fileID: 1505365560257088729}
   m_Layer: 0
-  m_Name: Wall (4)
+  m_Name: Wall West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,7 +690,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1505365560197515159}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1505365560257088734
 MonoBehaviour:
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 1505365560415847218}
   - component: {fileID: 1505365560415847219}
   m_Layer: 0
-  m_Name: Wall (3)
+  m_Name: Wall East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 1505365560679229969}
   - component: {fileID: 1505365560679229970}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1629,7 +1629,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1505365560197515159}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1505365560837697879
 MeshFilter:

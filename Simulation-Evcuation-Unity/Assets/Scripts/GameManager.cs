@@ -85,9 +85,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < number; i++)
         {
+            //Define where the agent can spawn and create a random Vector 3D to spawn i'm at this point.
             Vector3 pos_Agent = new Vector3(Random.Range(2.5f, 67.5f), 0.85f, Random.Range(-32.5f, -2.5f));
 
-            // Permit to avoid the fact that peoples spawn on other people or table etc
+            // Permit to avoid the fact that peoples spawn on other people or table
+            // The 3 represent the Layer that is not considered by CheckSphere (here the Ground layer because we want people to be able to spawn on the ground)
             while (Physics.CheckSphere(pos_Agent, SpawnCollisionCheckRadius, 3))
             {
                 pos_Agent = new Vector3(Random.Range(2.5f, 67.5f), 0.85f, Random.Range(-32.5f, -2.5f));

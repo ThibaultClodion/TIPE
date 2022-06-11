@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5574409073497457742}
   m_Layer: 0
-  m_Name: WallWithDoor (1)
+  m_Name: WallWithDoor West
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2758787740901999073}
   m_Layer: 0
-  m_Name: WallWithDoor (2)
+  m_Name: WallWithDoor East
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1505365559123745351}
   - component: {fileID: 1505365559123745344}
   m_Layer: 0
-  m_Name: Wall (1)
+  m_Name: Wall South
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -698,7 +698,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1505365560197515159}
   m_Layer: 3
-  m_Name: Building With 2 door
+  m_Name: Building 2 door
   m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 1505365560679229969}
   - component: {fileID: 1505365560679229970}
   m_Layer: 0
-  m_Name: Wall
+  m_Name: Wall North
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1676,7 +1676,7 @@ GameObject:
   - component: {fileID: 2685792527862846211}
   - component: {fileID: 3206910241504957797}
   m_Layer: 0
-  m_Name: ExitZone (1)
+  m_Name: ExitZone West
   m_TagString: ExitZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2296,7 +2296,7 @@ GameObject:
   - component: {fileID: 5037838564532654134}
   - component: {fileID: 7511880625908540262}
   m_Layer: 0
-  m_Name: ExitZone (2)
+  m_Name: ExitZone East
   m_TagString: ExitZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -48,26 +48,27 @@ public class GameManager : MonoBehaviour
         timer += Time.deltaTime;
         TimerText.text = "t: " + timer.ToString("n2") + "s";
 
-         //Update the People Save text
-         CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
-
-        //Color the human in function of density
-        //Coloration();
-
-        //Movement();
-
+        //Update the People Save text
+        CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
 
         //Everybody are safe, end of the simulation, restart
         if (HowManyHumanSpawn == HowManyPeopleSave)
         {
             Reset();
         }
+
+        //Allow to Take Screenshot when "P" is press
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            TakeScreenshot();
+        }
+
     }
 
     private void Reset()
     {
         HowManyPeopleSave = 0; // Reset the number of people save
-        SaveCSV(timer); //Save and Change the CSV
+        SaveCSV(); //Save and Change the CSV
 
         humans = new List<Human>(); //Reset the humans list
         humans_destination = new List<Transform>(); //Reset the humans_destination list
@@ -128,7 +129,7 @@ public class GameManager : MonoBehaviour
     }
     
 
-    void SaveCSV(float timerOfExit)
+    void SaveCSV()
     {
         //Path of the file
         string path = "C:/Users/darkz/Desktop/TIPE/Data/" + GameObject.FindGameObjectWithTag("Building").name + ".csv";
@@ -144,17 +145,24 @@ public class GameManager : MonoBehaviour
             File.AppendAllText(path, "\n");
         }
 
-        //Add the new values
-        File.AppendAllText(path, HowManyHumanSpawn.ToString() + ";" + timerOfExit.ToString() + ";");
-
         foreach (float time in exit_times)
         {
             File.AppendAllText(path, time.ToString() + ";");
         }
+
         File.AppendAllText(path, "\n");
     }
 
-    /*
+    public void TakeScreenshot()
+        {
+        string timeNow = System.DateTime.Now.ToString("dd-MMMM-yyyy HHmmss");
+
+        ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/Screenshot" + timeNow + ".png");
+        }
+
+}
+
+/*
 void DestroyAllHuman() // Destroy all the boids on the map
 {
     GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
@@ -190,18 +198,17 @@ List<Transform> GetNearbyObjects(Human agent)
     }
     return context;
 }
-*/
-void Movement()
-{
-    int i = 0;
-    foreach (Human agent in humans)
-    {
-        if (agent != null)
-        {
-            agent.Move(humans_destination[i]);
-        }
-        i++;
-    }
-}
 
-}
+    void Movement()
+    {
+        int i = 0;
+        foreach (Human agent in humans)
+        {
+            if (agent != null)
+            {
+                agent.Move(humans_destination[i]);
+            }
+            i++;
+        }
+    }
+*/

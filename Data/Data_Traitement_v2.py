@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+nb_personnes = 200
+
 
 def extract_data(filename):
     """
@@ -26,7 +28,7 @@ def extract_data(filename):
             liste_ligne = [float(x.replace(',', '.')) for x in ligne.split(";") if x != '']
 
             # Ajout des données aux tableaux
-            dernieres_sortie.append(liste_ligne[249])  # Le dernier temps de sortie correspond à la dernière colonne
+            dernieres_sortie.append(liste_ligne[nb_personnes - 1])  # Le dernier temps de sortie correspond à la dernière colonne
             temps_sortie.append(liste_ligne[2:])
 
     return nb_experience, dernieres_sortie, temps_sortie
@@ -77,9 +79,9 @@ def nb_survivant_temps(filename, pas, new_figure=True, axs=None, axs_i=-1, axs_j
 
     # A ce moment nb_non_sorties comptient pour chaque pas le nombres de personnes sortie
     # Il faut donc "inverser la signification de ce tableau" car on veut le nombre de personne non sortie
-    # De plus il faut moyenner les valeurs obtenues car on veut qu'au maximum il y est 250 personnes non sortie
+    # De plus il faut moyenner les valeurs obtenues car on veut qu'au maximum il y est  nb_personnes non sortie
 
-    nb_non_sorties = [250 - item / nb_exp for item in nb_non_sorties]
+    nb_non_sorties = [nb_personnes - item / nb_exp for item in nb_non_sorties]
 
     # Ajout de 20 valeurs dans nb_non_sorties et tab_pas
     # Ceci pour que les graphes ne finissent pas "brutalement"

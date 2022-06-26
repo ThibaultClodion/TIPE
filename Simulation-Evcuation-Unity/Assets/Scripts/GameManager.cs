@@ -137,7 +137,6 @@ public class GameManager : MonoBehaviour
         //Create File if it doesn't exist
         if (!File.Exists(path))
         {
-            File.WriteAllText(path, "Nombre Personnes;Temps Sortie Final;");
             for (int i = 0; i < HowManyHumanSpawn; i++)
             {
                 File.AppendAllText(path, "Personne " + i.ToString() + ";");
@@ -157,7 +156,7 @@ public class GameManager : MonoBehaviour
         {
         string timeNow = System.DateTime.Now.ToString("dd-MMMM-yyyy HHmmss");
 
-        ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/Screenshot" + timeNow + ".png");
+        ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/" + GameObject.FindGameObjectWithTag("Building").name + "  " + timeNow + ".png");
         }
 
 }

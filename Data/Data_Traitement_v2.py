@@ -313,9 +313,9 @@ def comparaison_solution_Move():
 
     ## Affichage de la figure 1 ##
     fig, axs = plt.subplots(2, 2)
-    nb_survivant_temps('Building 2 door, 250 tables uniform with Solution 1.csv', 0.1, False, axs, 0, 0)
-    nb_survivant_temps('Building 2 door, 250 tables uniform with Solution 2.csv', 0.1, False, axs, 0, 1)
-    nb_survivant_temps('Building 2 door, 250 tables uniform with Solution 3.csv', 0.1, False, axs, 1, 0)
+    nb_survivant_temps('2 door + 250 tables uniform with Solution 1.csv', 0.1, False, axs, 0, 0)
+    nb_survivant_temps('2 door + 250 tables uniform with Solution 2.csv', 0.1, False, axs, 0, 1)
+    nb_survivant_temps('2 door + 250 tables uniform with Solution 3.csv', 0.1, False, axs, 1, 0)
 
     # Adjust the placement of the plot and display it if plt.show() is call
     plt.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.4)
@@ -323,9 +323,9 @@ def comparaison_solution_Move():
 
     ## Affichage de la figure 2 ##
     fig, axs = plt.subplots(2, 2)
-    histogramme_dernier_temps('Building 2 door, 250 tables uniform with Solution 1.csv', False, axs, 0, 0)
-    histogramme_dernier_temps('Building 2 door, 250 tables uniform with Solution 2.csv', False, axs, 0, 1)
-    histogramme_dernier_temps('Building 2 door, 250 tables uniform with Solution 3.csv', False, axs, 1, 0)
+    histogramme_dernier_temps('2 door + 250 tables uniform with Solution 1.csv', False, axs, 0, 0)
+    histogramme_dernier_temps('2 door + 250 tables uniform with Solution 2.csv', False, axs, 0, 1)
+    histogramme_dernier_temps('2 door + 250 tables uniform with Solution 3.csv', False, axs, 1, 0)
 
     # Adjust the placement of the plot and display it if plt.show() is call
     plt.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.4)
@@ -336,16 +336,16 @@ def comparaison_solution_Move():
 
 
 def exemple_comparaison_batiment():
-    filenames = ['Building 2 door, 250 tables uniform with Solution 1.csv',
-                 'Building 2 door, 250 tables uniform with Solution 2.csv',
-                 'Building 2 door, 250 tables uniform with Solution 3.csv',
-                 'Building 2 door, 250 tables uniform with Solution 1.csv',
-                 'Building 2 door, 250 tables uniform with Solution 2.csv',
-                 'Building 2 door, 250 tables uniform with Solution 3.csv',
-                 'Building 2 door, 250 tables uniform with Solution 1.csv',
-                 'Building 2 door, 250 tables uniform with Solution 2.csv',
-                 'Building 2 door, 250 tables uniform with Solution 3.csv',
-                 'Building 2 door, 250 tables uniform with Solution 1.csv',
+    filenames = ['2 door + 250 tables uniform with Solution 1.csv',
+                 '2 door + 250 tables uniform with Solution 2.csv',
+                 '2 door + 250 tables uniform with Solution 1.csv',
+                 '2 door + 250 tables uniform with Solution 2.csv',
+                 '2 door + 250 tables uniform with Solution 3.csv',
+                 '2 door + 250 tables uniform with Solution 3.csv',
+                 '2 door + 250 tables uniform with Solution 1.csv',
+                 '2 door + 250 tables uniform with Solution 2.csv',
+                 '2 door + 250 tables uniform with Solution 3.csv',
+                 '1. couloir 1m.csv',
                  ]
 
     ## Affichage de la figure 1 ##

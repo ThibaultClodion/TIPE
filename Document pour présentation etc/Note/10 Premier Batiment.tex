@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\graphicspath{ {./Fichier_Image/} }
+
+\title{10 Premiers Bâtiments}
+\author{Thibault Clodion}
+
+\begin{document}
+
+\maketitle % Permet d'afficher le titre, l'author etc
+
+\section{Type de Batiments}
+
+\begin{itemize}
+
+\item 1. Couloir 1 m
+\item 2. Couloir 1.50 m
+\item 3. Couloir sans limite
+\item 4. 5 Personnes max par bureau
+\item 5. 10 Personnes max par bureau
+\item 6. 20 Personnes max par bureau
+\item 7. 30 Personnes max par bureau
+\item 8. Aucune limite de personnes max par bureau
+\item 9. 1 Porte par bureau
+\item 10. 2 Porte par bureau
+
+\end{itemize}
+
+\underline{Schéma de la forme générale du batiment :} \newline
+\includegraphics[scale=0.17]{General Looking.jpg}
+
+\section{Observations}
+
+\begin{itemize}
+
+    \item 1. D'abord après 100 simulations on obtient un temps moyen de sortie étant de 24.55 sec.
+    Pour le batiment avec les 250 tables uniformes j'avais un temps moyen de 26.20 sec. C'est donc encourageant
+    car cela veut dire que la disposition du bâtiment influe effectivement sur le temps de sortie.
+    \newline
+    Le bâtiment est un peu vide mais on peut déjà constater plusieurs phénomènes intéressant :
+    \newline
+    $\hspace*{0.2cm}$- L'important est de \textbf{Diviser le flux} cela permet d'évider les "embouteillages"
+    \newline
+    $\hspace*{0.2cm}$- Il est aussi important de disposer les tables et bureaux loin des "passages" cela permet
+    une arrivée plus rapide vers la sortie sans besoin d'esquiver des meubles
+    \newline
+    $\hspace*{0.2cm}$- Il est très intéressant d'éloigner les portes entres elles. Car les flux sont importants proches
+    des portes, ainsi en les éloignant on s'assure de ne pas réunir deux flux importants et de les garder diviser.
+    Je pense donc que la simulation 9 et 10 vont être intéressantes. (pourquoi pas tester une 11ème où les portes sont 
+    toujours en face les unes des autres pour illustrer les propos dis ici). On peut aussi constater qu'il est intéressant d'avoir des
+    murs et des portes car le temps à réduit comparer à la simulation avec 250 tables uniformes, donc on ne peut imaginer un batiment sans mur
+    pour optimiser le bâtiment (ceci car cela génère un flux important devant les uniques portes du bâtiments alors qu'il faut diviser le flux). 
+    
+\end{itemize}
+
+\end{document}

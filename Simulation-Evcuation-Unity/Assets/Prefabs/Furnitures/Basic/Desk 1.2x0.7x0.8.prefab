@@ -17,7 +17,7 @@ GameObject:
   m_Name: Desk 1.2x0.7x0.8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 1
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6649409047656984378

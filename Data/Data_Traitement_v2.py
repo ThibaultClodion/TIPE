@@ -206,15 +206,15 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
         plt.bar([i for i in range(0, len(dernieres_sorties))], dernieres_sorties)
 
         plt.title(
-            "Comparaison des temps moyens de sortie en fonction des bâtiments")
+            "Comparaison des temps moyens de dernière sortie en fonction des bâtiments")
         # Noms des axes
         axes = plt.gca()
-        axes.set_ylabel("Temps moyen de sortie")
+        axes.set_ylabel("Temps moyen de dernière sortie")
         axes.set_xlabel("N° du bâtiment")
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axes.axhline(min(dernieres_sorties), c='r', ls='--',
-                     label='Temps minimale : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
+                     label='minimale moyen de dernière sortie  : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
                                                                                 dernieres_sorties.index(
                                                                                     min(dernieres_sorties))))
 
@@ -224,18 +224,19 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
         plt.grid()
 
     else:
+        print(dernieres_sorties)
         axs[axs_i, axs_j].bar([i for i in range(0, len(dernieres_sorties))], dernieres_sorties)
 
         axs[axs_i, axs_j].set_title(
-            "Comparaison des temps moyens de sortie en fonction des bâtiments")
+            "Comparaison des temps moyens de dernière sortie en fonction des bâtiments")
 
         # Noms des axes
-        axs[axs_i, axs_j].set_ylabel("Temps moyen de sortie")
+        axs[axs_i, axs_j].set_ylabel("Temps moyen de dernière sortie")
         axs[axs_i, axs_j].set_xlabel("N° du bâtiment")
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axs[axs_i, axs_j].axhline(min(dernieres_sorties), c='r', ls='--',
-                                  label='Temps minimale : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
+                                  label='Temps minimale moyen de dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
                                                                                              dernieres_sorties.index(
                                                                                                  min(dernieres_sorties))))
 
@@ -269,15 +270,15 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
         plt.bar([i for i in range(0, len(max_sorties))], max_sorties)
 
         plt.title(
-            "Comparaison des temps maximales de sortie en fonction des bâtiments")
+            "Comparaison des temps maximales de dernière sortie en fonction des bâtiments")
         # Noms des axes
         axes = plt.gca()
-        axes.set_ylabel("Temps maximale de sortie")
+        axes.set_ylabel("Temps maximale de dernière sortie")
         axes.set_xlabel("N° du bâtiment")
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axes.axhline(min(max_sorties), c='r', ls='--',
-                     label='Temps minimale : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
+                     label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
                                                                                 max_sorties.index(
                                                                                     min(max_sorties))))
 
@@ -287,18 +288,19 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
         plt.grid()
 
     else:
+        print(max_sorties)
         axs[axs_i, axs_j].bar([i for i in range(0, len(max_sorties))], max_sorties)
 
         axs[axs_i, axs_j].set_title(
-            "Comparaison des temps maximales de sortie en fonction des bâtiments")
+            "Comparaison des temps maximales de dernière sortie en fonction des bâtiments")
 
         # Noms des axes
-        axs[axs_i, axs_j].set_ylabel("Temps maximale de sortie")
+        axs[axs_i, axs_j].set_ylabel("Temps maximale de de dernière sortie")
         axs[axs_i, axs_j].set_xlabel("N° du bâtiment")
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axs[axs_i, axs_j].axhline(min(max_sorties), c='r', ls='--',
-                                  label='Temps minimale : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
+                                  label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
                                                                                              max_sorties.index(
                                                                                                  min(max_sorties))))
 
@@ -336,15 +338,7 @@ def comparaison_solution_Move():
 
 
 def exemple_comparaison_batiment():
-    filenames = ['2 door + 250 tables uniform with Solution 1.csv',
-                 '2 door + 250 tables uniform with Solution 2.csv',
-                 '2 door + 250 tables uniform with Solution 1.csv',
-                 '2 door + 250 tables uniform with Solution 2.csv',
-                 '2 door + 250 tables uniform with Solution 3.csv',
-                 '2 door + 250 tables uniform with Solution 3.csv',
-                 '2 door + 250 tables uniform with Solution 1.csv',
-                 '2 door + 250 tables uniform with Solution 2.csv',
-                 '2 door + 250 tables uniform with Solution 3.csv',
+    filenames = ['2. couloir 1m50.csv',
                  '1. couloir 1m.csv',
                  ]
 

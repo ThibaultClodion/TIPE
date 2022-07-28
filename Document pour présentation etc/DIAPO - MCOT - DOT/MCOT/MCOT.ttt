@@ -1,0 +1,11 @@
+\begin{table}
+\caption{Une table quelconque}
+\label{tab:table}
+\centering
+\begin{tabular}{@{}lccp{4cm}@{}} \toprule
+Nom & Métier & Age & Remarques \\ \midrule
+Tourniaire & Enseignant & 30 & Vagues connaissances en informatique \\
+Anonyme & Bretteur & 55 & Vagues connaissances en escrime \\
+\bottomrule
+\end{tabular}
+\end{table}

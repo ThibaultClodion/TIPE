@@ -1,0 +1,24 @@
+\begin{figure}
+\centering
+
+\includegraphics[width=5cm]{figure1.png}
+
+\caption{Ma jolie figure}
+\label{fig:fig-vide}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+\centering
+
+\begin{tikzpicture} % environnement de dessin
+
+\draw (0,0) node[draw,name=a] {Un point};
+\draw (2,0) node[draw,name=b] {point};
+
+\draw[->] (a) -- (b) ;
+
+\end{tikzpicture}
+\caption{Un dessin avec tikz}
+\label{fig:tikz}
+\end{figure}

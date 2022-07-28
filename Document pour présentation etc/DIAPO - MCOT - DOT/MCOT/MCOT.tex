@@ -1,0 +1,106 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{multicol}
+
+
+\title{Mise en Cohérence des Objectifs de TIPE (MCOT) \\
+Optimisation d'un bâtiment dans le cadre d'une évacuation d'urgence}
+\author{}
+\date{}
+\begin{document}
+
+\maketitle
+
+Depuis plusieurs années, la foule me captive. Elle est à la fois humaine et ordonnée et sa compréhension nécessite des informaticiens, des physiciens, des psychologues et bien d'autres disciplines.
+\newline\newline
+A travers l'étude des évacuations d'urgence via des simulations informatiques de foule, il est possible d'analyser les temps d'évacuations en cas d'incident pour certains bâtiments et ainsi comprendre comment l'optimiser.
+
+\section*{Positionnement thématique}
+\textit{INFORMATIQUE (Informatique pratique).}
+
+\section*{Mots-clés}
+\begin{multicols}{2}
+
+    \subsection*{Mots-Clés (en français)}
+    Modélisation de foule
+    \newline Optimisation
+    \newline Evacuation d'urgence
+    \newline Recherche de chemins
+    \newline Simulation 
+
+    \columnbreak %Attention il faut sauter une ligne dans l'éditeur sinon ça ne fait pas les deux colonnes
+
+    \subsection*{Mots-Clés (en anglais)}
+    Crow Modelisation
+    \newline Optimization
+    \newline Emergency Evacuation
+    \newline Pathfinding
+    \newline Simulation
+
+\end{multicols}
+
+\section*{Bibliographie commentée}
+Une évacuation d'urgence est le fait que des individus doivent quitter un lieu en un minimum de temps afin de fuir un danger imminent ou présent. Elles sont à différencié des fuites, car elles sont organisés,
+comme dans le d'un incendie dans un établissement recevant du public (ERP), où il convient d'avoir un protocole mis en place pour les évacuations en cas d'urgence. En France, on dénombre 460 morts par incendie
+chaque an dont 85 décès dans des incendies d'entreprise ou de ERP. [1]
+\newline\newline
+L'exemple le plus retentissant est l'évacuation du 11 Septembre, 2977 morts et plus de 6000 blessées de par l'attentat sur les tours jumelles. Le projet HEED en travaillant sur cet incident publiquement a permis
+de mettre en place des normes de sécurité dans les bâtiments et d'aider le développement de certains logiciel de simulations d'évacuation de bâtiments. Ceci dans le but d'éviter de nombreux morts lors de tels événements.[2]
+\newline\newline
+Des chercheurs ont montré qu'en cas d'urgence, les individus favorisaient leurs intérêts personnels sur le court terme, ce qui provoque des bousculades, des manques de coordinations et des blessées. On parle de l'effet "Faster-is-Slower", car la précipitation ralentit fatalement
+le groupe.[3]
+\newline\newline
+Depuis les Boids de Crayg Reynolds, plusieurs modèles de représentation de foule ont vu le jour, donnant lieu à des logiciels de simulations de foule comme Massive ou buildingEXODUS qui a notamment été utilisé pour le projet HEED.[2][4]
+\newline\newline
+L'algorithme de recherche de chemins dans un graphe entre un sommet initial et final A* permet de simuler l'objectif voulu. Ceci en considérant que le point initial est le point d'apparition et que le point final est une porte de sortie.[5]
+\newline\newline
+Certains chercheurs ont déjà prouvé qu'il était possible d'optimiser des bâtiments pour permettre des évacuations plus rapide, dans leur cas ils ont réduit le temps d'évacuation d'un stade de 10\%. Ce temps précieux permettrait lors d'un incident de sauver de nombreuses vies.[6]
+\section*{Problématique retenue}
+Le comportement d'une foule lors d'une évacuation d'urgence est complexe, il est nécessaire de mettre en place une simulation satisfaisante dans le cas d'évacuation d'urgence.
+\newline\newline
+Grâce à cette simulation, il sera possible d'étudier comment optimiser un bâtiment pour minimiser les dangers lors d'évacuations d'urgence.
+
+\section*{Objectifs du TIPE du candidat}
+\begin{enumerate}
+    \item Mettre en place une simulation d'évacuation d'urgence
+    \item Se servir de la simulation pour optimiser un bâtiment d'une taille donnée
+    \item Tester l'influence de certains paramètres du bâtiment sur les temps de sorties
+\end{enumerate}
+
+\section*{Abstract}
+Emergency evacuations cause many deaths. These events are difficult to approach because experiment dealing with it
+will be consider as non-ethical. That why numeric model is a solution to observe crowd evacuation without injuries real people.
+This technic allow to find strategy to save the most people possible espcially how to configure the infrastructures to prevent tragic events.
+
+\section*{Références bibliographiques}
+\textbf{[1]} MINISTERE DE L'URBANISME : normes évacuations pour les ERP : \textit{https://entreprendre.service-public.fr/vosdroits/F31684}
+\newline\newline
+\textbf{[2]} E.R.GALEA, L.HULSE, R.DAY, A.SIDDIQUI, G.SHARP : The UK WTC 9/11 evacuation study: An overview of findings
+derived from first-hand interview data and computer modelling : \textit{2012,  Wiley Online Library} 
+\newline\newline
+\textbf{[3]} DIRK HELBING : Simulation of Pedestrian Crowds inNormal and Evacuation Situations : \textit{Janvier 2002, Pedestrian and Evacuation Dynamics}
+\newline\newline
+\textbf{[4]} CRAIG W. REYNOLDS : Flocks, Herds, and Schools:
+A Distributed Behavioral Model : \textit{Juin 1987, Computer Graphic}
+\newline\newline
+\textbf{[5]} PETER E. HART, NILS J. NILSSON, BERTRAM RAPHAEL : A Formal Basis for the Heuristic Determination of Minimum Cost Paths
+,\textit{Juin 1968, IEEE Transactions on Systems Science and Cybernetics ( Volume: 4, Issue: 2)}
+\newline\newline
+\textbf{[6]} HAN FANG, WEI LV, HE CHENG : Evacuation Optimization Strategy for Large-Scale Public Building Considering Plane Partition and Multi-Floor Layout,
+\textit{Fevrier 2022, Front. Public Health}
+
+\section*{DOT}
+\textbf{[1]} \textit{En Avril/Mars : Choix de la modélisation par A* + première implémentation sur Unity}
+\newline\newline
+\textbf{[2]}
+\newline\newline
+\textbf{[3]}
+\newline\newline
+\textbf{[4]}
+\newline\newline
+\textbf{[5]}
+\newline\newline
+
+
+\end{document}

@@ -28,7 +28,8 @@ def extract_data(filename):
             liste_ligne = [float(x.replace(',', '.')) for x in ligne.split(";") if x != '']
 
             # Ajout des données aux tableaux
-            dernieres_sortie.append(liste_ligne[nb_personnes - 1])  # Le dernier temps de sortie correspond à la dernière colonne
+            dernieres_sortie.append(
+                liste_ligne[nb_personnes - 1])  # Le dernier temps de sortie correspond à la dernière colonne
             temps_sortie.append(liste_ligne[2:])
 
     return nb_experience, dernieres_sortie, temps_sortie
@@ -199,11 +200,13 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
         nb_experience, ligne, _ = extract_data(filenames[i])
         dernieres_sorties.append(sum(ligne) / nb_experience)
 
+    print(dernieres_sorties)
+
     ## Affichage des graphes ##
     if new_figure:
         plt.figure()
 
-        plt.bar([i for i in range(0, len(dernieres_sorties))], dernieres_sorties)
+        plt.bar([i for i in range(1, len(dernieres_sorties) + 1)], dernieres_sorties)
 
         plt.title(
             "Comparaison des temps moyens de dernière sortie en fonction des bâtiments")
@@ -214,9 +217,10 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axes.axhline(min(dernieres_sorties), c='r', ls='--',
-                     label='minimale moyen de dernière sortie  : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
-                                                                                dernieres_sorties.index(
-                                                                                    min(dernieres_sorties))))
+                     label='minimale moyen de dernière sortie  : {:.2f} s -> Batiment n° {}'.format(
+                         min(dernieres_sorties),
+                         dernieres_sorties.index(
+                             min(dernieres_sorties)) + 1))
 
         # Permet d'avoir que des entiers en abcisse
         axes.xaxis.get_major_locator().set_params(integer=True)
@@ -224,8 +228,7 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
         plt.grid()
 
     else:
-        print(dernieres_sorties)
-        axs[axs_i, axs_j].bar([i for i in range(0, len(dernieres_sorties))], dernieres_sorties)
+        axs[axs_i, axs_j].bar([i for i in range(1, len(dernieres_sorties) + 1)], dernieres_sorties)
 
         axs[axs_i, axs_j].set_title(
             "Comparaison des temps moyens de dernière sortie en fonction des bâtiments")
@@ -236,9 +239,10 @@ def compare_moyenne_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axs[axs_i, axs_j].axhline(min(dernieres_sorties), c='r', ls='--',
-                                  label='Temps minimale moyen de dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(dernieres_sorties),
-                                                                                             dernieres_sorties.index(
-                                                                                                 min(dernieres_sorties))))
+                                  label='Temps minimale moyen de dernière sortie : {:.2f} s -> Batiment n° {}'.format(
+                                      min(dernieres_sorties),
+                                      dernieres_sorties.index(
+                                          min(dernieres_sorties)) + 1))
 
         # Permet d'avoir que des entiers en abcisse
         axs[axs_i, axs_j].xaxis.get_major_locator().set_params(integer=True)
@@ -263,11 +267,13 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
         nb_experience, ligne, _ = extract_data(filenames[i])
         max_sorties.append(max(ligne))
 
+    print(max_sorties)
+
     ## Affichage des graphes ##
     if new_figure:
         plt.figure()
 
-        plt.bar([i for i in range(0, len(max_sorties))], max_sorties)
+        plt.bar([i for i in range(1, len(max_sorties) + 1)], max_sorties)
 
         plt.title(
             "Comparaison des temps maximales de dernière sortie en fonction des bâtiments")
@@ -278,9 +284,10 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axes.axhline(min(max_sorties), c='r', ls='--',
-                     label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
-                                                                                max_sorties.index(
-                                                                                    min(max_sorties))))
+                     label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(
+                         min(max_sorties),
+                         max_sorties.index(
+                             min(max_sorties)) + 1))
 
         # Permet d'avoir que des entiers en abcisse
         axes.xaxis.get_major_locator().set_params(integer=True)
@@ -288,8 +295,7 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
         plt.grid()
 
     else:
-        print(max_sorties)
-        axs[axs_i, axs_j].bar([i for i in range(0, len(max_sorties))], max_sorties)
+        axs[axs_i, axs_j].bar([i for i in range(1, len(max_sorties) + 1)], max_sorties)
 
         axs[axs_i, axs_j].set_title(
             "Comparaison des temps maximales de dernière sortie en fonction des bâtiments")
@@ -300,9 +306,77 @@ def compare_max_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, a
 
         # Affichage d'une ligne horizontale corresponant au temps minimale
         axs[axs_i, axs_j].axhline(min(max_sorties), c='r', ls='--',
-                                  label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(min(max_sorties),
-                                                                                             max_sorties.index(
-                                                                                                 min(max_sorties))))
+                                  label='Temps minimale des max dernière sortie : {:.2f} s -> Batiment n° {}'.format(
+                                      min(max_sorties),
+                                      max_sorties.index(
+                                          min(max_sorties)) + 1))
+
+        # Permet d'avoir que des entiers en abcisse
+        axs[axs_i, axs_j].xaxis.get_major_locator().set_params(integer=True)
+        axs[axs_i, axs_j].legend()
+        axs[axs_i, axs_j].grid()
+
+
+def compare_min_dernier_sortie(filenames, new_figure=True, axs=None, axs_i=-1, axs_j=-1):
+    """
+    Entrée :
+    - filenames: un tableau avec les noms des fichiers csv associées aux buildings à comparer
+    - new_figure : booléen déterminant si on veut que le plot soit sur une nouvelle figure.
+    - fig & axs : figure et axes sur lequel on veut mettre le nouveau plot
+    - axs_i & axs_j : indice du subplot sur lequel on veut afficher le plot. (supposé valide)
+
+    Sortie : Un graphe comparant le minimum des derniers temps de sortie pour les bâtiment données en entrée.
+    """
+    ## Traitement des données ##
+    min_sorties = []
+
+    for i in range(0, len(filenames)):
+        nb_experience, ligne, _ = extract_data(filenames[i])
+        min_sorties.append(min(ligne))
+
+    print(min_sorties)
+
+    ## Affichage des graphes ##
+    if new_figure:
+        plt.figure()
+
+        plt.bar([i for i in range(1, len(min_sorties) + 1)], min_sorties)
+
+        plt.title(
+            "Comparaison des temps minimales de dernière sortie en fonction des bâtiments")
+        # Noms des axes
+        axes = plt.gca()
+        axes.set_ylabel("Temps minimale de dernière sortie")
+        axes.set_xlabel("N° du bâtiment")
+
+        # Affichage d'une ligne horizontale corresponant au temps minimale
+        axes.axhline(min(min_sorties), c='r', ls='--',
+                     label='Temps minimale des min dernière sortie : {:.2f} s -> Batiment n° {}'.format(
+                         min(min_sorties),
+                         min_sorties.index(
+                             min(min_sorties)) + 1))
+
+        # Permet d'avoir que des entiers en abcisse
+        axes.xaxis.get_major_locator().set_params(integer=True)
+        plt.legend()
+        plt.grid()
+
+    else:
+        axs[axs_i, axs_j].bar([i for i in range(1, len(min_sorties) + 1)], min_sorties)
+
+        axs[axs_i, axs_j].set_title(
+            "Comparaison des temps minimales de dernière sortie en fonction des bâtiments")
+
+        # Noms des axes
+        axs[axs_i, axs_j].set_ylabel("Temps minimales de de dernière sortie")
+        axs[axs_i, axs_j].set_xlabel("N° du bâtiment")
+
+        # Affichage d'une ligne horizontale corresponant au temps minimale
+        axs[axs_i, axs_j].axhline(min(min_sorties), c='r', ls='--',
+                                  label='Temps minimales des min dernière sortie : {:.2f} s -> Batiment n° {}'.format(
+                                      min(min_sorties),
+                                      min_sorties.index(
+                                          min(min_sorties)) + 1))
 
         # Permet d'avoir que des entiers en abcisse
         axs[axs_i, axs_j].xaxis.get_major_locator().set_params(integer=True)
@@ -337,15 +411,25 @@ def comparaison_solution_Move():
     plt.show()
 
 
-def exemple_comparaison_batiment():
-    filenames = ['2. couloir 1m50.csv',
-                 '1. couloir 1m.csv',
+def comparaison_10_premier_bat():
+    filenames = ['1. couloir 1m.csv',
+                 '2. couloir 1m50.csv',
+                 '3. couloir libre.csv',
+                 '4. 5 Personnes max par bureau.csv',
+                 '5. 10 Personnes max par bureau.csv',
+                 '6. 20 Personnes max par bureau.csv',
+                 '7. 30 Personnes max par bureau.csv',
+                 '8. 1 Porte par bureau.csv',
+                 '9. 2 Porte par bureau.csv',
+                 '10. 3 Porte par bureau.csv',
+                 '11. 4 Porte par bureau.csv'
                  ]
 
     ## Affichage de la figure 1 ##
     fig, axs = plt.subplots(2, 2)
     compare_moyenne_dernier_sortie(filenames, False, axs, 0, 0)
     compare_max_dernier_sortie(filenames, False, axs, 0, 1)
+    compare_min_dernier_sortie(filenames, False, axs, 1, 0)
 
     # Adjust the placement of the plot and display it
     plt.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.4)
@@ -353,7 +437,7 @@ def exemple_comparaison_batiment():
 
 
 def main():
-    exemple_comparaison_batiment()
+    comparaison_10_premier_bat()
 
 
 main()

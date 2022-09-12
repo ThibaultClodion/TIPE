@@ -19,6 +19,8 @@ Je garde le couloir principal selon le 1.a (donc 1m) et je change la taille des 
 Une autre expérience où je change tous les couloirs : 80cm, 1m, 1m25, 1m50, 2m. (pour vérifier si l'unicité est importante)
 \newline\newline
 
+\section{Couloirs Autre}
+
 1.(b) Couloir Autre 80cm :
 \newline\newline
 Temps moyen de dernière sortie : 22.67 s
@@ -70,9 +72,11 @@ Temps moyen de dernière sortie : 22.08s
 $\hspace*{0.2cm}$- Comme les autres couloirs sont très grand, on a d'important flux qui arrivent dans les couloirs principaux ce qui génère de nombreuses bousculades.
 \newline\newline
 
+\section{Couloir taille unique}
+
 1.(b) Couloirs 80cm :
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 28.70s
 \newline
 \includegraphics[scale=0.17]{1.(b) Couloirs 80cm -Observations.png}\newline
 \newline
@@ -83,12 +87,12 @@ $\hspace*{0.2cm}$- De plus parfois il y a seulement une personne qui passe en la
 
 1.(b) Couloirs 1m :
 \newline\newline
-Temps moyen de dernière sortie : 23.20 s
+Temps moyen de dernière sortie : 24.51 s
 \newline\newline
 
 1.(b) Couloirs 1m25 :
 \newline\newline
-Temps moyen de dernière sortie : 
+Temps moyen de dernière sortie : 20.42s
 \newline
 $\hspace*{0.2cm}$- La sortie est fluide malgrès quelque blocage au niveau des portes de sorties et de certaines intersections (comme dans chaque simulation). Mais comme 1m25 est relativement proche de 1m,
 les personnes arrivent à passer fluidement au niveau des portes.
@@ -98,7 +102,7 @@ $\hspace*{0.2cm}$-Il y a plus de fluidité dans les carrefours comme ils sont pl
 
 1.(b) Couloirs 1m50 :
 \newline\newline
-Temps moyen de dernière sortie : 
+Temps moyen de dernière sortie : 25.85
 \newline
 \includegraphics[scale=0.17]{1.(b) Couloirs 1m50- Problème.png}\newline
 \newline
@@ -108,13 +112,26 @@ $\hspace*{0.2cm}$-Comme la porte est trop petit par rapport aux couloirs y menan
 1.(b) Couloirs 2m :
 \newline\newline
 Temps moyen de dernière sortie : 
+\newline
+$\hspace*{0.2cm}$- Il y a des très gros flux ce qui créer des blocages au niveau des portes.
 \newline\newline
 
-\underline{Résultat :}
+\underline{Résultat : Couloirs Autre }
 \newline
 Contrairement à ce que je pensais il ne suffit pas d'avoir tous les couloirs de la même taille que le couloir principal pour avoir le meilleur temps.
 Il est aussi nécessaire d'avoir parfois de grands couloirs menant au couloir principaux pour augmenter le flux dans les couloirs principaux. (Ceci sans effet entonnoir car
 le flux arrive en entier dans le couloir car c'est sous forme de T)
+\newline
+Ci-dessous le graphe des resultats, on voit que le meilleur temps est quand les autres couloirs sont de 1m25.
+\newline
+\includegraphics[scale=0.3]{1.(b) Resultat.jpg}\newline
+\newline\newline
+
+\underline{Résultat : Couloirs et final}
+\newline
+Finalement on observe que lorsque tous les couloirs sont à 1m25 alors on obtient le temps minimale pour toutes les simulation du 1.(b), notre hypothèse de départ est donc fausse, et on s'aperçoit qu'il vaut mieux
+des couloirs un peu plus grand même devant les portes. Ceci car le blocage au niveau des portes est négligeable devant l'apport d'avoir des couloirs plus grands et donc un traffic plus important (même si ce traffic ne doit
+pas être trop important pour ne pas créer de gros blocages au niveau des portes).
 \newline
 
 

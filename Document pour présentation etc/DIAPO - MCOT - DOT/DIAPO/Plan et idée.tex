@@ -10,36 +10,49 @@
 \section{Introduction}
 
 \begin{itemize}
-    \item Enjeu
-    \item Rapport avec le thème
-    \item Exemple
+    \item Enjeu (exemple: 11 Septembre)
+    \item Lien avec le thème de l'année : La ville
 \end{itemize}
 
 \section{Modélisation de la Foule}
 
 \begin{itemize}
-    \item Plusieurs algos
-    \item Choix particulier A*
-    \item Amélioration du réalisme
-    \item Choix pour simplifier (ex : cone pour representer humain...)
+    \item L'idée est de simplifier le réel mais de rester mais de rester cohérent car les simulations 
+    doivent coller à des observations réels : Rester simple mais cohérent
+    \item Pourquoi on va supposer que chaque personne connait le pcc(PSO)
+    \item Choix de A* :
+    \newline - Simplicité, coût faible(200 personnes), déjà implémenté en Unity.
+    \newline - Double calcul : pcc puis intelligement (fonction Move)
+    \item Simplification autres : (cône de même taille, même vitesse, ...) (ce qui en soit aurait une influence si on les changeaient).
+\end{itemize}
+
+\section{Normes et choix du type de Bâtiment}
+
+\begin{itemize}
+    \item Normes XF-35 : une première base
+    \item Taille du bâtiment, type du bâtiment
+    \item Nombre de personnes et contraintes imposées(Bureaux PDG, employés proches...)
+    \item Choix taille du mobilier et du mobilier présent
 \end{itemize}
 
 \section{Optimisation du bâtiment}
 
 \begin{itemize}
-    \item Choix du batiment
-    \item Choix des normes considérées 
-    \item Processus d'Amélioration
-    \item Phénomènes dégagés (ce qui permet d'améliorer le temps de sortie)
-    \item Résultat
+    \item 10 Premiers Bâtiments pour observations
+    \item Hypothèses découlant des observations
+    \item Création d'un nouveau bâtiment "assez aléatoire" et optimisation selon Hypothèses
+    \item Micro-Optimisation selon le bâtiment et donc non appliquable dans les cas généraux. (et leur influence)
+    \item Conclusion sur l'efficacité de l'optimisation et les hypothèses eventuellement réappliquable pour chaque bâtiment.
 \end{itemize}
 
-\section{Influence de certains paramètres sur le batiment trouvé}
+\section{Conclusion}
 
 \begin{itemize}
-    \item ! Le batiment ne sera plus forcément optimal pour les paramètres considérées
-    \item ! Pour rester cohérent avec le TIPE, il faut faire varier des paramètres du bâtiment
-    \item Paramètres intéressant à faire varier + leur influence
+    \item Un temps précieux
+    \newline(Montré ce que le temps gagné représente en termes de vies sauvés)
+    \newline(On pourrait utiliser le traitement de données de Mme.Martin pour voir ce que n secondes en plus represente sur le nombre de morts)
+    \newline(Eventuellement donné le pourcentage de vie sauvés que cela représente)
+    \item Une ville plus sécurisé à l'heure où les bâtiments sont de plus en plus grand et de plus en plus nombreux.
 \end{itemize}
 
 \end{document}

@@ -102,7 +102,7 @@ $\hspace*{0.2cm}$-Il y a plus de fluidité dans les carrefours comme ils sont pl
 
 1.(b) Couloirs 1m50 :
 \newline\newline
-Temps moyen de dernière sortie : 25.85
+Temps moyen de dernière sortie : 24.62s
 \newline
 \includegraphics[scale=0.17]{1.(b) Couloirs 1m50- Problème.png}\newline
 \newline
@@ -111,7 +111,7 @@ $\hspace*{0.2cm}$-Comme la porte est trop petit par rapport aux couloirs y menan
 
 1.(b) Couloirs 2m :
 \newline\newline
-Temps moyen de dernière sortie : 
+Temps moyen de dernière sortie : 24.51s
 \newline
 $\hspace*{0.2cm}$- Il y a des très gros flux ce qui créer des blocages au niveau des portes.
 \newline\newline
@@ -124,15 +124,26 @@ le flux arrive en entier dans le couloir car c'est sous forme de T)
 \newline
 Ci-dessous le graphe des resultats, on voit que le meilleur temps est quand les autres couloirs sont de 1m25.
 \newline
-\includegraphics[scale=0.3]{1.(b) Resultat.jpg}\newline
+\includegraphics[scale=0.4]{1.(b) Resultat.jpg}\newline
 \newline\newline
 
-\underline{Résultat : Couloirs et final}
+\underline{Résultat : Couloirs}
 \newline
 Finalement on observe que lorsque tous les couloirs sont à 1m25 alors on obtient le temps minimale pour toutes les simulation du 1.(b), notre hypothèse de départ est donc fausse, et on s'aperçoit qu'il vaut mieux
 des couloirs un peu plus grand même devant les portes. Ceci car le blocage au niveau des portes est négligeable devant l'apport d'avoir des couloirs plus grands et donc un traffic plus important (même si ce traffic ne doit
 pas être trop important pour ne pas créer de gros blocages au niveau des portes).
 \newline
+\includegraphics[scale=0.4]{1.(b) Resultat-bis.jpg}\newline
+\newline\newline
 
+\underline{Résultat : Couloirs}
+\newline
+Finalement on vient de voir que la taille des couloirs influe sur le temps de sortie. Pour faire en sorte d'avoir un temps minimal, il faut que les couloirs soit un peu plus large que la sortie
+ainsi on a pas enormement plus de blocage au niveau des portes et en même temps le flux est plus important car le couloir est un peu plus large.
+1m25 pour tous les couloirs est le meilleur que l'on est trouvé.
+\newline
+Au final le 1.(a) ne sert pas à grand chose du coup.
+\newline\newline
+L'hypothèse gardé est : La taille des couloirs doit être unique et un peu plus grande que celle des portes de sorties principales.
 
 \end{document}

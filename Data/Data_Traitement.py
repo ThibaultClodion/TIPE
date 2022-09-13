@@ -452,7 +452,8 @@ def main():
     filenames = ['1.(b) Couloirs 80cm.csv',
                  '1.(b) Couloirs 1m.csv',
                  '1.(b) Couloirs 1m25.csv',
-                 '1.(b) Couloirs 1m50.csv',]
+                 '1.(b) Couloirs 1m50.csv',
+                 '1.(b) Couloirs 1m.csv']
 
     comparaison(filenames)
 

@@ -54,7 +54,12 @@ public class GameManager : MonoBehaviour
         //Everybody are safe, end of the simulation, restart
         if (HowManyHumanSpawn == HowManyPeopleSave)
         {
-            Reset();
+            Reset(true); //Reset de manière normale
+        }
+
+        if(timer > 50)
+        {
+            Reset(false); //Permet de Reset si le temps est trop long au cas où il y est un bug
         }
 
         //Allow to Take Screenshot when "P" is press
@@ -65,11 +70,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    private void Reset()
+    private void Reset(bool SaveResult)
     {
         HowManyPeopleSave = 0; // Reset the number of people save
-        SaveCSV(); //Save and Change the CSV
 
+        if (SaveResult == true)
+        {
+            SaveCSV(); //Save and Change the CSV
+        }
         humans = new List<Human>(); //Reset the humans list
         humans_destination = new List<Transform>(); //Reset the humans_destination list
         exit_times = new List<float>(); //Reset the exit_times

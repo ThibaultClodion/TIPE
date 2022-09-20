@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             Reset(true); //Reset de manière normale
         }
 
-        if(timer > 50)
+        if(timer > 40)
         {
             Reset(false); //Permet de Reset si le temps est trop long au cas où il y est un bug
         }
@@ -77,6 +77,10 @@ public class GameManager : MonoBehaviour
         if (SaveResult == true)
         {
             SaveCSV(); //Save and Change the CSV
+        }
+        if(SaveResult == false)
+        {
+            DestroyAllHuman();
         }
         humans = new List<Human>(); //Reset the humans list
         humans_destination = new List<Transform>(); //Reset the humans_destination list
@@ -167,19 +171,18 @@ public class GameManager : MonoBehaviour
         ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/" + GameObject.FindGameObjectWithTag("Building").name + "  " + timeNow + ".png");
         }
 
-}
-
-/*
-void DestroyAllHuman() // Destroy all the boids on the map
-{
-    GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
-
-    for (var i = 0; i < gameObjects.Length; i++)
+    void DestroyAllHuman() // Destroy all the boids on the map
     {
-        Destroy(gameObjects[i]);
+        GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
+
+        for (var i = 0; i < gameObjects.Length; i++)
+        {
+            Destroy(gameObjects[i]);
+        }
     }
 }
 
+/*
  private void Coloration()
 {
     foreach (Human human in humans)

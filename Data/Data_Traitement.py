@@ -449,12 +449,14 @@ def comparaison(filenames):
 
 
 def main():
-    filenames = ['3.(b) 4. avec 1 porte.csv',
-                 '3.(b) 4. avec 2 portes.csv',
-                 '3.(b) 4. avec 3 portes.csv'
+    filenames = ['4. 5 Personnes max par bureau.csv',
+                 '5. 10 Personnes max par bureau.csv',
+                 '6. 20 Personnes max par bureau.csv',
+                 '7. 30 Personnes max par bureau.csv'
                  ]
 
-    comparaison(filenames)
+
+    comparaison_solution_Move()
 
 
 main()

@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
             Reset(true); //Reset de manière normale
         }
 
-        if(timer > 40)
+        if(timer > 35)
         {
             Reset(false); //Permet de Reset si le temps est trop long au cas où il y est un bug
         }

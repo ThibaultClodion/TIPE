@@ -449,14 +449,20 @@ def comparaison(filenames):
 
 
 def main():
-    filenames = ['4. 5 Personnes max par bureau.csv',
-                 '5. 10 Personnes max par bureau.csv',
-                 '6. 20 Personnes max par bureau.csv',
-                 '7. 30 Personnes max par bureau.csv'
+    filenames = ['5. 5 personnes max.csv',
+                 '5. 10 personnes max.csv',
+                 '5. 15 personnes max.csv',
+                 '5. 20 personnes max.csv',
+                 '5. 25 personnes max.csv',
+                 '5. 30 personnes max.csv',
+                 '5. 35 personnes max.csv',
+                 '5. 40 personnes max.csv',
+                 '5. 45 personnes max.csv',
+                 '5. 50 personnes max.csv',
+                 '5. 55 personnes max.csv'
                  ]
 
-
-    comparaison_solution_Move()
+    comparaison(filenames)
 
 
 main()

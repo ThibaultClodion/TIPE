@@ -1,0 +1,32 @@
+\documentclass{article}
+
+% Package pour faire les do-to list
+\usepackage{enumitem,amssymb}
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+
+\title{TO DO LIST - TIPE}
+\author{Thibault Clodion}
+
+\begin{document}
+
+\maketitle % Permet d'afficher le titre, l'author etc
+
+\begin{todolist}
+    \item[\done] Finaliser les hypothèses.
+    \item Optimiser le bâtiment hypothétique.
+    \item Pour valider les hypothèses : Pourquoi pas les appliquer sur un vrai bâtiment. (BFM)
+    \item On pourrait aussi se proposer d'optimiser un bâtiment réel. (BFM)
+    \item Tout le code est à mettre en français. (pour présentation)
+    \item Faire la DOT.
+    \item Faire la MCOT.
+    \item Faire le Diapo.
+\end{todolist}
+
+\end{document}

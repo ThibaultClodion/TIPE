@@ -7,171 +7,179 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
 
-    //Define How many humans spawn at the start of simulation
+    //Définit le nombre de personnes qui apparaît au début de la simulation
     [Range(1f, 500f)]
-    public int HowManyHumanSpawn;
+    public int NombreHumainsTotal;
 
-    //Variable to know how many peoples were saves
-    public int HowManyPeopleSave = 0;
+    //Variable pour connaître le nombre d'humains sauvés
+    public int NombreHumainsSauve = 0;
 
-    //Time during the simulation
-    public float timer = 0;
+    //Variable pour connaitre le temps à tout moment de la simulation
+    public float temps = 0;
 
-    public float SpawnCollisionCheckRadius;
+    //Variable permettant de ne pas avoir de collision au lancement de la simulation
+    public float RayonDeNonCollision;
 
-    //Define the GameObject for the text
-    public TextMeshProUGUI CptPeopleSaveText;
-    public TextMeshProUGUI TimerText;
+    //Variables liés au texte affiché à l'écran
+    public TextMeshProUGUI NombrePersonneSauveTexte;
+    public TextMeshProUGUI TempsTexte;
 
 
-    //List of exit time for data
-    public List<float> exit_times = new List<float>();
+    //Liste des temps de sortie pour la récupération de données
+    public List<float> temps_sorties = new List<float>();
 
-    List<Human> humans = new List<Human>();
-    public Human HumanPrefab;
+    //Liste des humains et Prefab les définissant
+    List<Human> humains = new List<Human>();
+    public Human HumainPrefab;
 
-    private List<Transform> humans_destination = new List<Transform>();
+    //Liste des destination choisit par les humains (même indice que ceux de la liste "humains")
+    private List<Transform> humains_destination = new List<Transform>();
 
-    //Position of ExitZone
-    public List<Transform> ExitZonePos; // minimum pos reach by swarm
+    //Positions des sorties
+    public List<Transform> positions_sortie;
 
     private void Start()
     {
 
-        SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+        ApparitionHumain(NombreHumainsTotal); //Fait apparaître les humains
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Update the Timer
-        timer += Time.deltaTime;
-        TimerText.text = "t: " + timer.ToString("n2") + "s";
+        //Mise à jour du temps
+        temps += Time.deltaTime;
+        TempsTexte.text = "t: " + temps.ToString("n2") + "s";
 
-        //Update the People Save text
-        CptPeopleSaveText.text = "N: " + HowManyPeopleSave.ToString() + "/" + HowManyHumanSpawn.ToString();
+        //Mise à jour du texte du nombre de personnes sauvé
+        NombrePersonneSauveTexte.text = "N: " + NombreHumainsSauve.ToString() + "/" + NombreHumainsTotal.ToString();
 
-        //Everybody are safe, end of the simulation, restart
-        if (HowManyHumanSpawn == HowManyPeopleSave)
+        //Tout le monde à évacué, la simulation recommence normalement
+        if (NombreHumainsTotal == NombreHumainsSauve)
         {
-            Reset(true); //Reset de manière normale
+            Reapparition(true);
         }
 
-        if(timer > 35)
+        //Si la simulation met trop de temps (il y a un disfonctionnement), elle se relance alors.
+        if(temps > 35)
         {
-            Reset(false); //Permet de Reset si le temps est trop long au cas où il y est un bug
+            Reapparition(false);
         }
 
-        //Allow to Take Screenshot when "P" is press
+        //Permet de prendre des captures d'images en appuyant sur "P"
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TakeScreenshot();
+            CaptureDEcran();
         }
 
     }
 
-    private void Reset(bool SaveResult)
+    private void Reapparition(bool SauvergarderResultat)
     {
-        HowManyPeopleSave = 0; // Reset the number of people save
+        NombreHumainsSauve = 0; //Reset du nombre de personnes sauvé
 
-        if (SaveResult == true)
+        if (SauvergarderResultat == true)
         {
-            SaveCSV(); //Save and Change the CSV
+            SauvegardeCSV(); //Sauvergarde du CSV
         }
-        if(SaveResult == false)
+        if(SauvergarderResultat == false)
         {
-            DestroyAllHuman();
+            DestructionHumains(); //Destruction des humains restants (car si on ne sauvegarde pas les données c'est qu'il y a eu un problème)
         }
-        humans = new List<Human>(); //Reset the humans list
-        humans_destination = new List<Transform>(); //Reset the humans_destination list
-        exit_times = new List<float>(); //Reset the exit_times
+
+        humains = new List<Human>(); //Reset de la liste des humains
+        humains_destination = new List<Transform>(); //Reset de la liste des destinations choisit par les humains
+        temps_sorties = new List<float>(); //Reset la liste des temps de sortie
 
 
-        SpawnHuman(HowManyHumanSpawn); // Create the amount of human who need to spawn
+        ApparitionHumain(NombreHumainsTotal); // Fait apparaître les humains
 
-        timer = 0; //Reset the timer
+        temps = 0; //Reset le temps à 0
     }
 
-
-    //Create "number" human with the model define in the public variable 
-    void SpawnHuman(int number)
+    //Créer le nombre d'humains voulus
+    void ApparitionHumain(int nombreHumains)
     {
-        for (int i = 0; i < number; i++)
+        for (int i = 0; i < nombreHumains; i++)
         {
-            //Define where the agent can spawn and create a random Vector 3D to spawn i'm at this point.
-            Vector3 pos_Agent = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
+            //Définit où l'humain apparaît
+            Vector3 Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
 
-            // Permit to avoid the fact that peoples spawn on other people or table
-            // The 3 represent the Layer that is not considered by CheckSphere (here the Ground layer because we want people to be able to spawn on the ground)
-            while (Physics.CheckSphere(pos_Agent, SpawnCollisionCheckRadius, 3))
+            // Permet d'éviter les collisions à l'apparition
+            // Le "3" dans la fonction représente le Layer non considéré par CheckSphere (ici il s'agit du sol, car on veut que les humais apparaîssent sur le sol)
+            while (Physics.CheckSphere(Position_Hum, RayonDeNonCollision, 3))
             {
-                pos_Agent = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
+                //On attribue une nouvelle position aléatoire à l'agent.
+                Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
             }
 
-            Human newAgent = Instantiate(HumanPrefab, pos_Agent,
+            Human Humain = Instantiate(HumainPrefab, Position_Hum,
             Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
 
-            newAgent.name = "Agent" + i;
+            Humain.name = "Agent" + i;
 
-            Transform Closest_destination = DefineClosestExitZone(pos_Agent); // Store the nearest destination of all agents
-            newAgent.Move(Closest_destination);
+            Transform MeilleureDestination = PositionSortiePlusProche(Position_Hum); // Permet de connaître la position de la sortie la plus proche.
+            Humain.Deplacer(MeilleureDestination);
 
-            humans_destination.Add(Closest_destination);
-            humans.Add(newAgent);
+            humains_destination.Add(MeilleureDestination);
+            humains.Add(Humain);
         }
     }
 
-    Transform DefineClosestExitZone(Vector3 humanPos)
+    // Renvoie la position de la sortie la plus proche de la position "PositionDepart"
+    Transform PositionSortiePlusProche(Vector3 PositionDepart)
     {
-        Transform bestTarget = null;
-        float min_dist = Mathf.Infinity;
+        Transform PositionProche = null;
+        float Distance_minimale = Mathf.Infinity;
 
-        foreach (Transform exitZone in ExitZonePos)
+        foreach (Transform Sorties in positions_sortie)
         {
-            Vector3 direction = exitZone.position - humanPos;
-            float dSqrToTarget = direction.sqrMagnitude;
+            Vector3 direction = Sorties.position - PositionDepart;
+            float DistanceActuel = direction.sqrMagnitude;
 
-            if (dSqrToTarget < min_dist)
+            if (DistanceActuel < Distance_minimale)
             {
-                min_dist = dSqrToTarget;
-                bestTarget = exitZone;
+                Distance_minimale = DistanceActuel;
+                PositionProche = Sorties;
             }
         }
-        return bestTarget;
+        return PositionProche;
     }
     
 
-    void SaveCSV()
+    void SauvegardeCSV()
     {
-        //Path of the file
-        string path = "C:/Users/darkz/Desktop/TIPE/Data/" + GameObject.FindGameObjectWithTag("Building").name + ".csv";
+        //Chemin du fichier
+        string chemin = "C:/Users/darkz/Desktop/TIPE/Data/" + GameObject.FindGameObjectWithTag("Building").name + ".csv";
 
-        //Create File if it doesn't exist
-        if (!File.Exists(path))
+        //Création du fichier si il n'existe pas
+        if (!File.Exists(chemin))
         {
-            for (int i = 0; i < HowManyHumanSpawn; i++)
+            for (int i = 0; i < NombreHumainsTotal; i++)
             {
-                File.AppendAllText(path, "Personne " + i.ToString() + ";");
+                File.AppendAllText(chemin, "Personne " + i.ToString() + ";");
             }
-            File.AppendAllText(path, "\n");
+            File.AppendAllText(chemin, "\n");
         }
 
-        foreach (float time in exit_times)
+        foreach (float temps in temps_sorties)
         {
-            File.AppendAllText(path, time.ToString() + ";");
+            File.AppendAllText(chemin, temps.ToString() + ";");
         }
 
-        File.AppendAllText(path, "\n");
+        File.AppendAllText(chemin, "\n");
     }
 
-    public void TakeScreenshot()
+    //Effectue une capture d'écran à la date et l'heure actuelle
+    public void CaptureDEcran()
         {
-        string timeNow = System.DateTime.Now.ToString("dd-MMMM-yyyy HHmmss");
+        string Date = System.DateTime.Now.ToString("dd-MMMM-yyyy HHmmss");
 
-        ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/" + GameObject.FindGameObjectWithTag("Building").name + "  " + timeNow + ".png");
+        ScreenCapture.CaptureScreenshot("C:/Users/darkz/Desktop/TIPE/Document pour présentation etc/Screenshot - Unity/" + GameObject.FindGameObjectWithTag("Building").name + "  " + Date + ".png");
         }
 
-    void DestroyAllHuman() // Destroy all the boids on the map
+    //Détruit tous les GameObject dont le Tag est "Human"
+    void DestructionHumains()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Human");
 
@@ -181,44 +189,3 @@ public class GameManager : MonoBehaviour
         }
     }
 }
-
-/*
- private void Coloration()
-{
-    foreach (Human human in humans)
-    {
-        if (human != null)
-        {
-            List<Transform> context = GetNearbyObjects(human);
-            //Fade the color from yellow to red with the density
-            human.GetComponent<SpriteRenderer>().color = Color.Lerp(Color.yellow, Color.red, context.Count / 50f);
-        }
-    }
-}
-List<Transform> GetNearbyObjects(Human agent)
-{
-    List<Transform> context = new List<Transform>();
-    Collider2D[] contextColliders = Physics2D.OverlapCircleAll(agent.transform.position, neighborRadius);
-    foreach (Collider2D c in contextColliders)
-    {
-        if (c != agent)
-        {
-            context.Add(c.transform);
-        }
-    }
-    return context;
-}
-
-    void Movement()
-    {
-        int i = 0;
-        foreach (Human agent in humans)
-        {
-            if (agent != null)
-            {
-                agent.Move(humans_destination[i]);
-            }
-            i++;
-        }
-    }
-*/

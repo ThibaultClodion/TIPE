@@ -10,12 +10,11 @@ public class Human : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
-    public Transform ExitZoneWantedPosition;
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
 
-        GMScript = GameObject.Find("GameManager").GetComponent<GameManager>(); // In the Awake to avoid a problem of reference (believe me let it here)
+        GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Start is called before the first frame update
@@ -24,7 +23,7 @@ public class Human : MonoBehaviour
         NavMesh.avoidancePredictionTime = 0.5f;
     }
 
-    public void Move(Transform pos)
+    public void Deplacer(Transform pos)
     {
         //Le détail sur les avantages et incovénient des solutions est dans mes notes.
 
@@ -37,7 +36,7 @@ public class Human : MonoBehaviour
         // Solution 2 : le calcul est parfois très long et plus le batiment est complexe plus il le serra surement
         //navMeshAgent.SetDestination(pos.position);
 
-        // Solution 3 
+        // Solution 3 : optimal
          
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(pos.position, path);
@@ -48,17 +47,18 @@ public class Human : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider Autre)
     {
-        if (other.tag == "ExitZone")
+        //Si l'humain entre dans une zone de sortie
+        if (Autre.tag == "ExitZone")
         {
-            //Change the public variable, to add a people save
-            GMScript.HowManyPeopleSave++;
+            //L'humain considéré est sorti de la pièce.
+            GMScript.NombreHumainsSauve++;
 
-            //Get the time when the people exit (to make stats)
-            GMScript.exit_times.Add(GMScript.timer);
+            //Ajout du temps de sortie de cet individu à la liste des temps de sortie.
+            GMScript.temps_sorties.Add(GMScript.temps);
 
-            //Destroy the object if it goes to the exit zone
+            //Destruction de l'objet pour ne pas surcharger la scène.
             Destroy(gameObject);
         }
     }

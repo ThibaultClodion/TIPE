@@ -134,7 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35e3557c7b953134bb195658e84b00c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExitZoneWantedPosition: {fileID: 0}
 --- !u!136 &-4356933460777390456
 CapsuleCollider:
   m_ObjectHideFlags: 0

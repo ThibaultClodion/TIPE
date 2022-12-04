@@ -35,7 +35,7 @@ pour essayer d'observer une gaussienne et conclure sur le nombre de personnes pa
 \newline\newline
 \includegraphics[scale=0.3]{5. 5 personnes max.png}
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 24.77
 \newline
 $\hspace*{0.2cm}$- Grand bloquage au niveau du croisement à droite car on ne peut pas éviter le carrefour étant donné la taille des bureaux imposés.
 \newline
@@ -44,7 +44,7 @@ $\hspace*{0.2cm}$- Peu de bureau = Peu de contrôle des flux
 
 5. 10 personnes max
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 23.78
 \newline
 $\hspace*{0.2cm}$- On est relativement sur les mêmes problématiques malgrés quelques améliorations.
 \newline\newline
@@ -53,7 +53,7 @@ $\hspace*{0.2cm}$- On est relativement sur les mêmes problématiques malgrés q
 \newline\newline
 \includegraphics[scale=0.3]{5. 15 personnes max.png}
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 22.53
 \newline
 $\hspace*{0.2cm}$- On peut enfin éviter le carrefour à droite, car la taille des bureaux permets une plus grande modulation des flux.
 \newline
@@ -62,7 +62,7 @@ $\hspace*{0.2cm}$-On a toujours de grand flux qui se rencontrent mais on a facil
 
 5. 20 personnes max
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 22.01
 \newline
 $\hspace*{0.2cm}$- Encore une facilitation du contrôle des flux.
 \newline\newline
@@ -71,38 +71,33 @@ $\hspace*{0.2cm}$- Encore une facilitation du contrôle des flux.
 \newline\newline
 \includegraphics[scale=0.3]{5. 25 personnes max.png}
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 23.42
 \newline
 $\hspace*{0.2cm}$- Le problème se trouve dans le fait que malgré un contrôle des flux, tout le monde commence à emprunter le même chemin.
 \newline\newline
 
 5. 30 personnes max
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 23.10
 \newline
 $\hspace*{0.2cm}$- Le temps baisse un peu car la gestion des flux en haut à droite est facilité par des bureaux plus grand.
-\newline\newline
-
-5. 35 personnes max (même que 30 personnes max)
 \newline\newline
 
 5. 40 personnes max
 \newline\newline
 \includegraphics[scale=0.3]{5. 40 personnes max.png}
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 22.69
 \newline
 $\hspace*{0.2cm}$- L'ouverture du bureau au milieu (comme le disait l'hypothèse 3.(a)) est intéressante, elle permet de séparer les flux en offrant plus de chemins.
 \newline\newline
 
-5. 45 personnes max (même que 40 personnes max)
-\newline\newline
 
 5. 50 personnes max (Meilleur temps moyen de sortie)
 \newline\newline
 \includegraphics[scale=0.3]{5. 50 personnes max.png}
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie :21.59
 \newline
 $\hspace*{0.2cm}$- On a des grand flux (dans chaque bureau car ils sont très grands) mais ils se divisent plutôt bien et se confrontent mais relativement peu. (comparé autres simulations)
 \newline
@@ -111,7 +106,7 @@ $\hspace*{0.2cm}$- Donc finalement le fait de pouvoir contrôler les flux est si
 
 5. 55 personnes max
 \newline\newline
-Temps moyen de dernière sortie :
+Temps moyen de dernière sortie : 22.25
 \newline
 $\hspace*{0.2cm}$- Il n'y a pas d'amélioration car le fait d'avoir enlever la cloison en bas à droite, fait qu'il y a plus de flux dans le bureau de droite
 et moins de flux dans ce qui arrive de la gauche (pour aller à droite)
@@ -119,12 +114,27 @@ et moins de flux dans ce qui arrive de la gauche (pour aller à droite)
 $\hspace*{0.2cm}$- Donc au final le temps est plus long.
 \newline\newline
 
+5. 100 personnes max
+\newline\newline
+Temps moyen de dernière sortie :25.97
+\newline
+$\hspace*{0.2cm}$- Ici on a enlever tous les murs (il reste deux grand bureaux un en bas un en haut)
+\newline
+$\hspace*{0.2cm}$- On espère evidemment de gros embouteillages à la sortie de chaque bureau étant donné qu'ils sont grand, ce qui ralentit la sortie.
+
 \section{Conclusion}
-\includegraphics[scale=0.3]{5. 50 personnes max.png}
+\includegraphics[scale=0.3]{5. Resultat.png}
 \newline\newline
 
-Au final on observe pas réellement une gaussienne inversé comme attendu. (c'est donc plus complexe qu'attendu)
+On n'observe pas une gaussienne inversé comme attendue. (on ne peut donc pas conclure aussi vite que l'hypothèse)
+\newline\newline
+Cependant ce qu'on peut tout de même conclure, c'est que pour avoir des temps de sorties meilleurs, il faut avoir des bureaux de taille entre 15 et 55 personnes
+(plus ou moins fait augmenter le temps).
 \newline
+On peut constater que les pires temps se situent pour la taille 5 et la taille 100.
+\newline\newline
+On conclut donc qu'il faut des bureaux de tailles raisonnables (pas trop grand ni trop petit).
+
 
 
 \end{document}

@@ -448,21 +448,110 @@ def comparaison(noms_fichier):
     plt.show()
 
 
+def nombre_personne_sauve(nom_fichier, temps_fin, pas=0.01):
+    """
+    Entrée :
+    - filename : le nom d'un fichier csv dont on veut extraire les données
+    - pas : pas du temps pour le graphique de sortie
+
+    Sortie :  - Affichage d'un graphique du nombre de personnes non sorties en moyenne en fonction du temps avec une barre
+    au temps valant temps_fin (pour voir le nombre de personnes mortes ou sauvés après ce temps)
+              - Affichage dans le shell du nombre de personnes pas sortie avec le temps : temps_fin
+    (La précision de la courbe dépend du pas considéré)
+
+    """
+    ## Traitement des données ##
+
+    nb_exp, derniers_sortie, temps_sortie = Extraire_Donnees(nom_fichier)
+
+    # Traitement pour obtenir un grand tableau temps_sortie triée par temps croissant
+    temps_sortie = [item for sublist in temps_sortie for item in sublist]
+    temps_sortie.sort()
+    longueur_temps_sortie = len(temps_sortie)
+
+    nb_non_sorties = [0]  # Tableau comptant le nombre de personne non sortie par pas
+    tab_pas = [0]  # Tableau contenant les différent temps considérés (qu'on incrémente par le pas)
+
+    ind_nb_non_sorties = 0  # Permet de savoir quel indice du tableau est a considérée
+    ind_temps = 0  # Permet de savoir quel temps est à considérer
+
+    while ind_temps != longueur_temps_sortie:  # Dans ce cas plus pratique d'une boucle for
+
+        if temps_sortie[ind_temps] - ind_nb_non_sorties * pas <= pas:
+            # Cas où le temps considérée est dans un intervalle du pas
+            nb_non_sorties[ind_nb_non_sorties] += 1
+            ind_temps += 1
+
+        else:
+            # Cas où le temps considérée dépasse l'intervalle du pas
+            nb_non_sorties.append(nb_non_sorties[ind_nb_non_sorties])
+
+            ind_nb_non_sorties += 1
+
+            tab_pas.append(round(pas * ind_nb_non_sorties, len(str(pas))))
+
+    # A ce moment nb_non_sorties comptient pour chaque pas le nombres de personnes sortie
+    # Il faut donc "inverser la signification de ce tableau" car on veut le nombre de personne non sortie
+    # De plus il faut moyenner les valeurs obtenues car on veut qu'au maximum il y est  nb_personnes non sortie
+
+    nb_non_sorties = [nb_personnes - item / nb_exp for item in nb_non_sorties]
+
+    # Ajout de 20 valeurs dans nb_non_sorties et tab_pas
+    # Ceci pour que les graphes ne finissent pas "brutalement"
+    for i in range(1, 21):
+        nb_non_sorties.append(nb_non_sorties[ind_nb_non_sorties])
+        tab_pas.append(pas * (ind_nb_non_sorties + i))
+
+    # Calcul du temps moyen de la dernière sortie
+    moyenne_derniere_sortie = sum(derniers_sortie) / nb_exp
+
+    # Calcul du dernier temps de sortie observée
+    max_derniere_sortie = max(derniers_sortie)
+
+    ## Valeur du nombre de personnes non sorties avec temps_fin ##
+    temps_fin = round(temps_fin, len(str(pas)))  # On arrondi la valeur en fonction du temps pour être sur qu'il est présent dans tab_pas
+    indice_temps_fin = tab_pas.index(temps_fin)  # On récupère l'indice du temps associé à temps fin
+
+    nb_non_sauve = round(nb_non_sorties[indice_temps_fin], 2)
+
+    print("Nombre de personnes non sauvés (en moyenne) avant temps_fin : ", nb_non_sauve, "personnes")
+    print("Nombre de personnes non sauvés (en pourcentage) avant temps_fin", (nb_non_sauve / nb_personnes)*100, "%")
+
+    ## Affichage des Graphes ##
+    plt.figure()
+    plt.plot(tab_pas, nb_non_sorties)  # Graphe principal (celui voulu)
+
+    # Ajout sur le graphe de la moyenne de la dernière sortie et du dernier temps de sortie
+    plt.axvline(temps_fin, c='r', ls='--',
+                label='Temps de fin : {:.2f}'.format(temps_fin))
+    plt.axhline(nb_non_sauve, c='r', ls='--',
+                label='Nb personnes non sauvés : {:.2f}'.format(nb_non_sauve))
+
+    plt.title("Nombre de personnes non sortie en fonction du temps pour le batiment : \n" + nom_fichier)
+
+    # Noms des axes
+    axes = plt.gca()
+    axes.set_ylabel("Nombre de personnes non sortie")
+    axes.set_xlabel("t (s)")
+
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+
+#nombre_personne_sauve('Batiment Initial.csv', 22.22)
+
 def main():
-    noms_fichier = ['5. 5 personnes max.csv',
-                    '5. 10 personnes max.csv',
-                    '5. 15 personnes max.csv',
-                    '5. 20 personnes max.csv',
-                    '5. 25 personnes max.csv',
-                    '5. 30 personnes max.csv',
-                    '5. 35 personnes max.csv',
-                    '5. 40 personnes max.csv',
-                    '5. 45 personnes max.csv',
-                    '5. 50 personnes max.csv',
-                    '5. 55 personnes max.csv'
+    noms_fichier = ['Batiment Initial.csv',
+                    'Batiment Hypothèse 3..csv',
+                    'Batiment Hypothèse 5..csv',
+                    'Batiment Hypothèse 6..csv',
+                    'Batiment Hypothèse 1..csv',
+                    'Batiment 4.1.csv',
+                    'Batiment 4.2.csv',
                     ]
 
     comparaison(noms_fichier)
-
+    plt.show()
 
 main()

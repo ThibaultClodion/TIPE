@@ -37,14 +37,14 @@ public class Human : MonoBehaviour
         //navMeshAgent.SetDestination(pos.position);
 
         // Solution 3 : optimal
-         
+
         NavMeshPath path = new NavMeshPath();
         navMeshAgent.CalculatePath(pos.position, path);
         navMeshAgent.SetPath(path);
-        
+
 
         navMeshAgent.SetDestination(pos.position);
-        
+
     }
 
     private void OnTriggerEnter(Collider Autre)

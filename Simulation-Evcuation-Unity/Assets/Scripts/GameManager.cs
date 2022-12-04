@@ -11,11 +11,15 @@ public class GameManager : MonoBehaviour
     [Range(1f, 500f)]
     public int NombreHumainsTotal;
 
+    //Booléen permettant de savoir si les personnes apparaissent aléatoirement ou non
+    public bool ApparaitAleatoirement;
+
     //Variable pour connaître le nombre d'humains sauvés
     public int NombreHumainsSauve = 0;
 
     //Variable pour connaitre le temps à tout moment de la simulation
     public float temps = 0;
+    public float temps_max;
 
     //Variable permettant de ne pas avoir de collision au lancement de la simulation
     public float RayonDeNonCollision;
@@ -40,8 +44,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-
-        ApparitionHumain(NombreHumainsTotal); //Fait apparaître les humains
+        ApparitionHumain(NombreHumainsTotal, ApparaitAleatoirement); //Fait apparaître les humains
     }
 
     // Update is called once per frame
@@ -61,7 +64,7 @@ public class GameManager : MonoBehaviour
         }
 
         //Si la simulation met trop de temps (il y a un disfonctionnement), elle se relance alors.
-        if(temps > 35)
+        if(temps > temps_max)
         {
             Reapparition(false);
         }
@@ -92,37 +95,40 @@ public class GameManager : MonoBehaviour
         temps_sorties = new List<float>(); //Reset la liste des temps de sortie
 
 
-        ApparitionHumain(NombreHumainsTotal); // Fait apparaître les humains
+        ApparitionHumain(NombreHumainsTotal, ApparaitAleatoirement); // Fait apparaître les humains
 
         temps = 0; //Reset le temps à 0
     }
 
     //Créer le nombre d'humains voulus
-    void ApparitionHumain(int nombreHumains)
+    void ApparitionHumain(int nombreHumains, bool apparaitAleatoirement)
     {
-        for (int i = 0; i < nombreHumains; i++)
+        if(apparaitAleatoirement)
         {
-            //Définit où l'humain apparaît
-            Vector3 Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
-
-            // Permet d'éviter les collisions à l'apparition
-            // Le "3" dans la fonction représente le Layer non considéré par CheckSphere (ici il s'agit du sol, car on veut que les humais apparaîssent sur le sol)
-            while (Physics.CheckSphere(Position_Hum, RayonDeNonCollision, 3))
+            for (int i = 0; i < nombreHumains; i++)
             {
-                //On attribue une nouvelle position aléatoire à l'agent.
-                Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
+                //Définit où l'humain apparaît
+                Vector3 Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
+
+                // Permet d'éviter les collisions à l'apparition
+                // Le "3" dans la fonction représente le Layer non considéré par CheckSphere (ici il s'agit du sol, car on veut que les humais apparaîssent sur le sol)
+                while (Physics.CheckSphere(Position_Hum, RayonDeNonCollision, 3))
+                {
+                    //On attribue une nouvelle position aléatoire à l'agent.
+                    Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
+                }
+
+                Human Humain = Instantiate(HumainPrefab, Position_Hum,
+                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+
+                Humain.name = "Agent" + i;
+
+                Transform MeilleureDestination = PositionSortiePlusProche(Position_Hum); // Permet de connaître la position de la sortie la plus proche.
+                Humain.Deplacer(MeilleureDestination);
+
+                humains_destination.Add(MeilleureDestination);
+                humains.Add(Humain);
             }
-
-            Human Humain = Instantiate(HumainPrefab, Position_Hum,
-            Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
-
-            Humain.name = "Agent" + i;
-
-            Transform MeilleureDestination = PositionSortiePlusProche(Position_Hum); // Permet de connaître la position de la sortie la plus proche.
-            Humain.Deplacer(MeilleureDestination);
-
-            humains_destination.Add(MeilleureDestination);
-            humains.Add(Humain);
         }
     }
 

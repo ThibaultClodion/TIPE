@@ -33,7 +33,8 @@ public class GameManager : MonoBehaviour
     public List<float> temps_sorties = new List<float>();
 
     //Liste des humains et Prefab les définissant
-    List<Human> humains = new List<Human>();
+    public List<Human> humains_non_aleatoire = new List<Human>();
+    public List<Human> humains = new List<Human>();
     public Human HumainPrefab;
 
     //Liste des destination choisit par les humains (même indice que ceux de la liste "humains")
@@ -118,8 +119,24 @@ public class GameManager : MonoBehaviour
                     Position_Hum = new Vector3(Random.Range(0f, 70f), 0.85f, Random.Range(-35f, 0f));
                 }
 
-                Human Humain = Instantiate(HumainPrefab, Position_Hum,
-                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+                Human Humain = Instantiate(HumainPrefab, Position_Hum, Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
+
+                Humain.name = "Agent" + i;
+
+                Transform MeilleureDestination = PositionSortiePlusProche(Position_Hum); // Permet de connaître la position de la sortie la plus proche.
+                Humain.Deplacer(MeilleureDestination);
+
+                humains_destination.Add(MeilleureDestination);
+                humains.Add(Humain);
+            }
+        }
+        else
+        {
+            for(int i = 0; i < nombreHumains; i++)
+            {
+                Vector3 Position_Hum = humains_non_aleatoire[i].transform.position;
+
+                Human Humain = Instantiate(HumainPrefab, Position_Hum, Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f)), transform);
 
                 Humain.name = "Agent" + i;
 

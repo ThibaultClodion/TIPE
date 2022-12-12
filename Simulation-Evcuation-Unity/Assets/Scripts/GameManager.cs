@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     //Booléen permettant de savoir si les personnes apparaissent aléatoirement ou non
     public bool ApparaitAleatoirement;
 
+    //Booléen permettant de savoir si on veut enregistrer les données ou non
+    public bool sauvegarderDonnees;
+
     //Variable pour connaître le nombre d'humains sauvés
     public int NombreHumainsSauve = 0;
 
@@ -34,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     //Liste des humains et Prefab les définissant
     public List<Human> humains_non_aleatoire = new List<Human>();
-    public List<Human> humains = new List<Human>();
+    private List<Human> humains = new List<Human>();
     public Human HumainPrefab;
 
     //Liste des destination choisit par les humains (même indice que ceux de la liste "humains")
@@ -59,9 +62,13 @@ public class GameManager : MonoBehaviour
         NombrePersonneSauveTexte.text = "N: " + NombreHumainsSauve.ToString() + "/" + NombreHumainsTotal.ToString();
 
         //Tout le monde à évacué, la simulation recommence normalement
-        if (NombreHumainsTotal == NombreHumainsSauve)
+        if (NombreHumainsTotal == NombreHumainsSauve && sauvegarderDonnees == true)
         {
             Reapparition(true);
+        }
+        else if( NombreHumainsTotal == NombreHumainsSauve && sauvegarderDonnees == false)
+        {
+            Reapparition(false);
         }
 
         //Si la simulation met trop de temps (il y a un disfonctionnement), elle se relance alors.
